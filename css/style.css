@@ -1,0 +1,68 @@
+body {
+	font-size: 17px;
+	color: #1a1a1a;
+	font-family: Helvetica, sans-serif;
+	line-height: 1.6;
+}
+
+p {
+	margin: 0.75rem 0;
+}
+
+a {
+	color: #1a1a1a;
+	text-decoration: none;
+	border-bottom: 2px solid currentColor;
+}
+
+.intro {
+	max-width: 40rem;
+	margin: 0 auto;
+}
+
+.graphic {
+	max-width: 70rem;
+	margin: 0 auto;
+	position: relative;
+}
+
+.graphic__prose {
+	width: 20rem;
+}
+
+.graphic__prose .trigger {
+	min-height: 240px;
+}
+
+.graphic__vis {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	margin-left: 20rem;
+	width: 50rem;
+	height: 100%;
+	overflow: hidden;
+	text-align: center;
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+
+svg {
+	margin-top: 2rem;
+	border: 1px dashed black;
+}
+
+.item circle {
+	stroke: #666;
+	stroke-width: 1px;
+	fill: #fff;
+}
+
+.item text {
+	fill: #666;
+	font-size: 12px;
+	text-anchor: middle;
+	alignment-baseline: middle;
+}
