@@ -1,4 +1,4 @@
 # Scrollytelling blog
 
 ## Dev
-make dev
+`make dev`

@@ -42,13 +42,15 @@
 	<main>
 		<div class='intro'>
 			<p>
-				<strong>Scrollytelling is the best</strong> (or the worst depending on your point of view). We mostly love it here at <a href'#'>The Pudding</a>. But creating a scroll-driven story is hardly a standardize practice, and there are many libraries out there that can help make it happen.
+				<strong>Scrollytelling is the best</strong> (or the worst depending on your <a target='_blank' href='https://eagereyes.org/blog/2016/the-scrollytelling-scourge'>point of view</a>). We mostly love it here at <a href'#'>The Pudding</a>. But creating a scroll-driven story is hardly a standardize practice, and there are many libraries out there that can help make it happen.
 			</p>
+			<p>Just to be clear, scrollytelling is when content (eg. a graphic) is revealed or changes as the user scrolls. It does not affect scroll behavior, but simply monitors it. Do not confuse this will scroll-jacking, which manipulates the browser's scroll mechanics with JavaScript, and is generally evil.
+			</p> 
 			<p>
 				<strong>In this post, I look at how to tackle a simple scroll-driven chart using six different libraries</strong>, and discuss the pros and cons of each implementation. It is inspired by Lisa Charlotte Rost's <a target='_blank' href='https://lisacharlotterost.github.io/2016/05/17/one-chart-code/'>great post</a> about how to make the same chart using 12 different charting libraries. 
 			</p>
 			<p>
-				I'm not going to get into the different types of scrollytelling, or debate the serious ethical and moral implications of the practice. I defer to <a target='_blank' href='https://medium.com/@zanarmstrong/why-choose-scrollytelling-steppers-155a59dd97fe'>these</a> <a target='_blank' href='http://vallandingham.me/scroll_talk/examples/'>posts</a> for scrollytelling primers.
+				ICYMI, scrollytelling is when  I'm not going to get into the different types of scrollytelling, or debate the serious ethical and moral implications of the practice. I defer to <a target='_blank' href='https://medium.com/@zanarmstrong/why-choose-scrollytelling-steppers-155a59dd97fe'>these</a> <a target='_blank' href='http://vallandingham.me/scroll_talk/examples/'>posts</a> for scrollytelling primers.
 			</p>
 			<p>
 				We are going to use the "scroll-to-trigger" pattern, where each trigger element (in this case a block of text) tells the chart to update to a new state. Additionally, we want the chart to stay fixed while the text moves, and have it snap back into place as it enters and exits. It should look something like this: [GIF HERE]
