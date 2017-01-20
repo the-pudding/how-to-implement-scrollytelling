@@ -13,8 +13,8 @@
 		var scaleR = null
 		var data = [8, 6, 7, 5, 3, 0, 9]
 		var extent = d3.extent(data)
-		var minR = 8
-		var maxR = 16
+		var minR = 10
+		var maxR = 24
 		
 		// actions to take on each step of our scroll-driven story
 		var steps = [
@@ -148,40 +148,82 @@
 		init()
 		
 		return {
-			graphicEl: graphicEl,
-			graphicVisEl: graphicVisEl, 
-			graphicProseEl: graphicProseEl,
 			update: update,
 		}
 	}
 
-	function init() {
-		var libSelector = '.library__waypoints'
-		var g1 = createGraphic(libSelector)
-		// using vanilla js here in case folks aren't fond of d3...
+	// using vanilla js here in case folks aren't fond of d3...
+	function waypoints() {
+		var selector = '.library__waypoints'
+		var containerEl = document.querySelector(selector)
+		var graphicEl = containerEl.querySelector('.graphic')
+		var graphicVisEl = containerEl.querySelector('.graphic__vis')
+		var triggerEls = containerEl.querySelectorAll('.trigger')
 
-		// triggers
-		var triggerEl = document.querySelectorAll('.library__waypoints .trigger')
-		for (var i = 0; i < triggerEl.length; i++) {
+		// grab the margin so we can offset the vis when it becomes fixed
+		var rightOffset = graphicEl.getBoundingClientRect().left + 'px'
+
+		// this handles all our animations and stuff at each trigger
+		// this can be whatever you want, but just know it does all the vis
+		var graphic = createGraphic(selector)
+		
+		// setup a waypoint trigger for each trigger element
+		for (var i = 0; i < triggerEls.length; i++) {
 			new Waypoint({
-				element: triggerEl[i],
+				element: triggerEls[i], // our trigger element
 				handler: function(direction) {
 					// get the step, cast as number
 					var step = +this.element.getAttribute('data-step')
 					
 					// if the direction is down then we use that number,
 					// else, we want to trigger the previous one
-					// note: (never go lower than 0, since 0 is our first step)
 					var nextStep = direction === 'down' ? step : Math.max(0, step - 1)
 					
-					g1.update(nextStep)
+					// tell our graphic to update with a specific step
+					graphic.update(nextStep)
 				},
-				offset: '50%',
+				offset: '50%',  // trigger halfway up the viewport
 			})
 		}
 
-		// enter/exit
-		
+		// small function for handling all the class changes
+		 // of entering/exiting
+		var toggle = function(fixed, bottom) {
+			if (fixed) {
+				graphicVisEl.classList.add('is-fixed')
+				graphicVisEl.style.right = rightOffset
+			} else {
+				graphicVisEl.classList.remove('is-fixed')
+				graphicVisEl.style.right = 0
+			}
+			
+			if (bottom) graphicVisEl.classList.add('is-bottom')
+			else graphicVisEl.classList.remove('is-bottom')
+		}
+
+		// enter (top) / exit (bottom) graphic (toggle fixed position)
+		var enterWaypoint = new Waypoint({
+			element: graphicEl,
+			handler: function(direction) {
+				var fixed = direction === 'down'
+				var bottom = false
+				toggle(fixed, bottom)
+			},
+		})
+
+		var exitWaypoint = new Waypoint({
+			element: graphicEl,
+			handler: function(direction) {
+				var fixed = direction === 'up'
+				var bottom = !fixed
+				toggle(fixed, bottom)
+			},
+			offset: 'bottom-in-view', // waypoints convenience instead of a calculation
+		})
+	}
+
+	function init() {
+		waypoints()	
 	}
 
 	init()

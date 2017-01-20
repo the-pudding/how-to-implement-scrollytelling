@@ -1,0 +1,58 @@
+/* GRAPHIC CODE */
+.graphic {
+	max-width: 60rem;
+	margin: 0 auto;
+	position: relative;
+}
+
+.graphic__prose {
+	width: 24rem;
+}
+
+.graphic__prose .trigger {
+	padding: 2rem 1em;
+	min-height: 240px;
+}
+
+.graphic__vis {
+	position: absolute;
+	right: 0;
+	top: 0;
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+	height: 100vh;
+}
+
+.graphic__vis.is-fixed {
+	position: fixed;
+}
+
+.graphic__vis.is-bottom {
+	top: auto;
+	bottom: 0;
+}
+
+.graphic__vis svg {
+	border: 1px dashed black;
+	position: absolute;
+	top: 50%;
+	right: 0;
+	-webkit-transform: translateY(-50%);
+	-moz-transform: translateY(-50%);
+	transform: translateY(-50%);
+
+}
+
+.item circle {
+	stroke: #666;
+	stroke-width: 1px;
+	fill: #fff;
+}
+
+.item text {
+	fill: #666;
+	font-size: 12px;
+	text-anchor: middle;
+	alignment-baseline: middle;
+}

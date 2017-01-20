@@ -33,41 +33,122 @@
 	  <meta name="twitter:creator" content="@pudding">
 	  <meta name="twitter:title" content="">
 	  <meta name="twitter:description" content="">
-	  <meta name="twitter:image:src" content="">	
-		<style>*{box-sizing:border-box}a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section{display:block}body,html{height:100%}a img{border:none}blockquote{quotes:none}blockquote:after,blockquote:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}caption,td,th{text-align:left;font-weight:400;vertical-align:middle}html{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;text-size-adjust:100%}body{font-feature-settings:'kern' 1,'onum' 1,'liga' 0;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}b,strong{font-weight:700}em,i{font-style:italic}ul{list-style-type:none}img,video{display:block;width:100%}button{cursor:pointer;border:none;outline:0;margin:0;padding:0;font-size:1rem}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}.hide-accessible{width:1px;height:1px;overflow:hidden;position:absolute}.hide-invisible{visibility:hidden}.hide-display{display:none}.tk-whitney{font-family:Helvetica,Arial,sans-serif;letter-spacing:.04em;font-weight:300}.loaded-whitney .tk-whitney{font-family:'Whitney SSm A','Whitney SSm B',Helvetica,Arial,sans-serif;letter-spacing:normal}.tk-mercury{font-family:Georgia,Times,serif;letter-spacing:.04em;font-weight:400}.loaded-mercury .tk-mercury{font-family:'Mercury SSm A','Mercury SSm B',Georgia,Times,serif;letter-spacing:normal}body{background:#fff;font-size:17px}@media only screen and (min-width:25em){.hack-for-mq-cache{height:0}}@media only screen and (min-width:40em){.hack-for-mq-cache{height:0}}@media only screen and (min-width:50em){.hack-for-mq-cache{height:0}}@media only screen and (min-width:60em){.hack-for-mq-cache{height:0}}</style>
-	
+	  <meta name="twitter:image:src" content="">		
 	<link rel='stylesheet' href='css/style.css' />
+	<link rel='stylesheet' href='css/graphic.css' />
+	<link rel='stylesheet' href='css/prism.css' />
 </head>
 <body>
 	<main>
 		<div class='intro'>
 			<p>
-				Scrollytelling is the best (or the worst depending on your viewpoint). We mostly love it here at <a href'#'>The Pudding</a>. But creating a scroll-driven story is hardly a standardize practice, and there are many libraries out there that can help get you there.
+				<strong>Scrollytelling is the best</strong> (or the worst depending on your point of view). We mostly love it here at <a href'#'>The Pudding</a>. But creating a scroll-driven story is hardly a standardize practice, and there are many libraries out there that can help make it happen.
 			</p>
 			<p>
-				In this post, I demonstrate how to tackle a simple scroll-driven chart using six different libraries, and discuss the pros and cons of each implementation. It is inspired by Lisa Charlotte Rost's <a target='_blank' href='https://lisacharlotterost.github.io/2016/05/17/one-chart-code/'>great post</a> about how to make the same chart using 12 different charting libraries. 
+				<strong>In this post, I look at how to tackle a simple scroll-driven chart using six different libraries</strong>, and discuss the pros and cons of each implementation. It is inspired by Lisa Charlotte Rost's <a target='_blank' href='https://lisacharlotterost.github.io/2016/05/17/one-chart-code/'>great post</a> about how to make the same chart using 12 different charting libraries. 
 			</p>
 			<p>
-				I'm not going to get into the different types of scrollytelling or debate the ethics and morality of it. Read <a target='_blank' href='https://medium.com/@zanarmstrong/why-choose-scrollytelling-steppers-155a59dd97fe'>these</a> <a target='_blank' href='http://vallandingham.me/scroll_talk/examples/'>posts</a> for scrollytelling 101.
+				I'm not going to get into the different types of scrollytelling, or debate the serious ethical and moral implications of the practice. I defer to <a target='_blank' href='https://medium.com/@zanarmstrong/why-choose-scrollytelling-steppers-155a59dd97fe'>these</a> <a target='_blank' href='http://vallandingham.me/scroll_talk/examples/'>posts</a> for scrollytelling primers.
 			</p>
 			<p>
-				We are going to use the scroll-to-trigger pattern, where each new "trigger" element (in this case a block of text) tells the chart to update to a new state. Additionally, we want the chart to stay fixed while the text moves, and have it snap back into place before and after the section. It should look something like this: [GIF HERE]
+				We are going to use the "scroll-to-trigger" pattern, where each trigger element (in this case a block of text) tells the chart to update to a new state. Additionally, we want the chart to stay fixed while the text moves, and have it snap back into place as it enters and exits. It should look something like this: [GIF HERE]
 			<p>
 			<p>
-				Disclaimer: <em>this post is not covering responsive solutions, so if you had the audacity to resize your browser, refresh the page. I'm not going to tackle mobile stuff here, that should be its own post...</em>
+				Disclaimer: <em>this post does not cover responsive solutions (though you should do it, and most libraries make it pretty painless), so if you had the audacity to resize your browser, refresh the page. I'm not going to cover mobile stuff here, which will probably become its own post soon enough...</em>
 			</p>
 		</div>
-		<div class='container library__waypoints'>
-			<div class='graphic'>
+		<div class='library library__waypoints'>
+			<h2 class='library__hed'>#1 - <a href='#'>Waypoints</a></h2>
+			<div class='library__graphic graphic'>
 				<div class='graphic__prose'>
-					<p class='trigger' data-step='0'>Trigger step 0 here.</p>
-					<p class='trigger' data-step='1'>Trigger step 1 here.</p>
-					<p class='trigger' data-step='2'>Trigger step 2 here.</p>
+					<p class='trigger' data-step='0'>Step 1 in the graphic. It triggers in the middle of the viewport. For this graphic, step 1 is the same as the initial view so the reader doesn't miss anything.</p>
+					<p class='trigger' data-step='1'>Step 2 arrives. The graphic should be locking into a fixed position right about now. We could have a whole bunch of these "fixed" steps.</p>
+					<p class='trigger' data-step='2'>Step 3 concludes our brief tour. The graphic should now go back to its original in-flow position, elegantly falling back into place.</p>
 				</div>
 				<div class='graphic__vis'></div>
 			</div>
+			<div class='library__results'>
+				<p class='results_graf'>Overall, waypoints is a very solid choice. It has been around for a while, and supports both vanilla JS and jQuery integration. It has an easy to understand API and good documentation. It also a nice a debug extension to reduce some head-scratching. And some nice add-ons for stuff like inview detection, and sticky elements.</p>
+				<!-- <div class='results__pros-cons'>
+					<div class='pros-cons pros'>
+						<p class='pros-cons__hed'>Pros</p>
+						<ul class='pros-cons__list'>
+							<li>Thing 1</li>
+						</ul>
+					</div>
+					<div class='pros-cons cons'>
+						<p class='pros-cons__hed'>Cons</p>
+						<ul class='pros-cons__list'>
+							<li>Thing 1</li>
+						</ul>
+					</div>
+				</div> -->
+			</div>
+			<div class='library__code'>
+				<pre><code class='language-js'>
+function waypoints() {
+	var selector = '.library__waypoints'
+	var containerEl = document.querySelector(selector)
+	var graphicEl = containerEl.querySelector('.graphic')
+	var graphicVisEl = containerEl.querySelector('.graphic__vis')
+	var triggerEls = containerEl.querySelectorAll('.trigger')
+
+	var rightOffset = graphicEl.getBoundingClientRect().left + 'px'
+	var graphic = createGraphic(selector)
+	
+	for (var i = 0; i < triggerEls.length; i++) {
+		new Waypoint({
+			element: triggerEls[i],
+			handler: function(direction) {
+				var step = +this.element.getAttribute('data-step')
+				var nextStep = direction === 'down' ? step : Math.max(0, step - 1)
+
+				graphic.update(nextStep)
+			},
+			offset: '50%',
+		})
+	}
+
+	var toggle = function(fixed, bottom) {
+		if (fixed) {
+			graphicVisEl.classList.add('is-fixed')
+			graphicVisEl.style.right = rightOffset
+		} else {
+			graphicVisEl.classList.remove('is-fixed')
+			graphicVisEl.style.right = 0
+		}
+		
+		if (bottom) graphicVisEl.classList.add('is-bottom')
+		else graphicVisEl.classList.remove('is-bottom')
+	}
+
+	var enterWaypoint = new Waypoint({
+		element: containerEl,
+		handler: function(direction) {
+			var fixed = direction === 'down'
+			var bottom = false
+			toggle(fixed, bottom)
+		},
+	})
+
+	var exitWaypoint = new Waypoint({
+		element: containerEl,
+		handler: function(direction) {
+			var fixed = direction === 'up'
+			var bottom = !fixed
+			toggle(fixed, bottom)
+		},
+		offset: 'bottom-in-view',
+	})
+}
+				</code></pre>
+			</div>
+		</div>
+		<div class='outro'>
+			<p>Outro</p>
 		</div>
 	</main>
+
 	<script src='js/libs/d3.v4.min.js'></script>
 
 	
@@ -96,9 +177,13 @@
 	<!-- http://bl.ocks.org/tonyhschu/raw/af64df46f7b5b760fc1db1260dd6ec6a/ -->
 
 	
-
 	<!-- The code to scroll the story -->
 	<script src='js/entry.js'></script>
+	<script src='js/prism.js'></script>
 	<!-- <script src="https://pudding.cool/assets/scripts/pudding-footer.js"></script> -->
+	<script id="__bs_script__">//<![CDATA[
+	    document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.17.5'><\/script>".replace("HOST", location.hostname));
+	//]]></script>
+
 </body>
 </html>
