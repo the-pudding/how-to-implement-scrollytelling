@@ -319,11 +319,100 @@
 			})
 	}
 
+	// #4 in-view.js
+	function inview() {
+		var selector = '.library__inview'
+		var containerEl = document.querySelector(selector)
+		var graphicEl = containerEl.querySelector('.graphic')
+		var graphicVisEl = containerEl.querySelector('.graphic__vis')
+		var triggerEls = selectionToArray(containerEl.querySelectorAll('.trigger'))
+
+		// this handles all our animations and stuff at each trigger
+		// this can be whatever you want, but just know it does all the vis
+		var graphic = createGraphic(selector)
+
+		// small function for handling all the class changes
+		// of entering/exiting
+		var toggle = function(fixed, bottom) {
+			if (fixed) graphicVisEl.classList.add('is-fixed')
+			else graphicVisEl.classList.remove('is-fixed')
+
+			if (bottom) graphicVisEl.classList.add('is-bottom')
+			else graphicVisEl.classList.remove('is-bottom')
+		}
+
+		const halfHeight = Math.floor(window.innerHeight / 2)
+		
+		const inviewTrigger = inView()
+
+		inviewTrigger.offset({
+			top: 0,
+			right: 0,
+			bottom: halfHeight,
+			left: 0,
+		})
+
+
+		inviewTrigger('.library__inview .trigger')
+			.on('enter', function(el) {
+				var step = +el.getAttribute('data-step')
+				graphic.update(step)
+			})
+			.on('exit', function(el) {
+				// console.log('exit', el)
+			})
+
+		var inviewTop = inView()
+		
+		inviewTop.offset({
+			top: 0,
+			right: 0,
+			bottom: window.innerHeight,
+			left: 0,
+		})
+
+		inviewTop('.library__inview .graphic')
+			.on('enter', function(el) {
+				var fixed = true
+				var bottom = false
+				toggle(fixed, bottom)
+			})
+			.on('exit', function(el) {
+				var fixed = false
+				var bottom = false
+				toggle(fixed, bottom)
+			})
+
+		var inviewBottom = inView()
+		
+		inviewBottom.offset({
+			top: 0,
+			right: 0,
+			bottom: graphicEl.offsetHeight,
+			left: 0,
+		})
+
+		inviewBottom('.library__inview .graphic')
+			.on('enter', function(el) {
+				var fixed = false
+				var bottom = true
+				toggle(fixed, bottom)
+			})
+			.on('exit', function(el) {
+				var fixed = true
+				var bottom = false
+				toggle(fixed, bottom)
+			})
+	}
+
 	function init() {
 		waypoints()
 		scrollmagic()
 		graphscroll()
+		inview()
 
+		// hack to tell brower to resize since prism takes a second
+		// to affect style/height
 		setTimeout(function() {
 			window.dispatchEvent(new Event('resize'))	
 		}, 100)

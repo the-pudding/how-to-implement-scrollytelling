@@ -88,3 +88,7 @@ background-color: rgba(255, 242, 174, 0.5);*/
 .library__graphscroll {
 	background-color: rgba(203, 213, 232, 0.5);
 }
+
+.library__inview {
+	background-color: rgba(244, 202, 228, 0.5);
+}
