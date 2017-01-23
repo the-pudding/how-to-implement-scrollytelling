@@ -313,6 +313,7 @@
 			.container(graphicEl)
 			.graph(graphicVisEl)
 			.sections(triggerEls)
+			.offset(window.innerHeight / 2)
 			.on('active', function(i) {
 				graphic.update(i)
 			})

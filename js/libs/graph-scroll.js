@@ -4,7 +4,7 @@
   (factory((global.d3 = global.d3 || {}),global.d3));
 }(this, function (exports,d3) { 'use strict';
 
-  function graphScroll(){
+  function graphScroll() {
     var windowHeight,
         dispatch = d3.dispatch("scroll", "active"),
         sections = d3.select('null'),
@@ -17,12 +17,13 @@
         container = d3.select('body'),
         containerStart = 0,
         belowStart,
-        eventId = Math.random()
+        eventId = Math.random(),
+        offset = 0
 
     function reposition(){
       var i1 = 0
       sectionPos.forEach(function(d, i){
-        if (d < pageYOffset - containerStart) i1 = i
+        if (d < pageYOffset - containerStart + offset) i1 = i
       })
       i1 = Math.min(n - 1, i1)
       if (i != i1){
@@ -139,6 +140,13 @@
     rv.on = function() {
       var value = dispatch.on.apply(dispatch, arguments);
       return value === dispatch ? rv : value;
+    }
+
+    rv.offset = function(_x) {
+      if (!_x) return rv
+      
+      offset = _x
+      return rv
     }
 
     return rv
