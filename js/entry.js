@@ -1,5 +1,4 @@
 (function() {
-	// store some elements for later
 	function createGraphic(librarySelector) {
 		var container = d3.select(librarySelector)
 		var graphicEl = container.select('.graphic')
@@ -139,7 +138,6 @@
 		}
 
 		function init() {
-			console.log('init')
 			setupCharts()
 			setupProse()
 			update(0)
@@ -153,28 +151,38 @@
 	}
 
 	// using vanilla js here in case folks aren't fond of d3...
+	
+	// helper function so we can map over dom selection
+	function selectionToArray(selection) {
+		var len = selection.length
+		var result = []
+		for (var i = 0; i < len; i++) {
+			result.push(selection[i])
+		}
+		return result
+	}
+	
+	// #1 Waypoints
 	function waypoints() {
 		var selector = '.library__waypoints'
 		var containerEl = document.querySelector(selector)
 		var graphicEl = containerEl.querySelector('.graphic')
 		var graphicVisEl = containerEl.querySelector('.graphic__vis')
-		var triggerEls = containerEl.querySelectorAll('.trigger')
-
-		// grab the margin so we can offset the vis when it becomes fixed
-		var rightOffset = graphicEl.getBoundingClientRect().left + 'px'
+		var triggerEls = selectionToArray(containerEl.querySelectorAll('.trigger'))
 
 		// this handles all our animations and stuff at each trigger
 		// this can be whatever you want, but just know it does all the vis
 		var graphic = createGraphic(selector)
 		
 		// setup a waypoint trigger for each trigger element
-		for (var i = 0; i < triggerEls.length; i++) {
-			new Waypoint({
-				element: triggerEls[i], // our trigger element
+		var waypoints = triggerEls.map(function(el) {
+			
+			// get the step, cast as number					
+			var step = +el.getAttribute('data-step')
+
+			return new Waypoint({
+				element: el, // our trigger element
 				handler: function(direction) {
-					// get the step, cast as number
-					var step = +this.element.getAttribute('data-step')
-					
 					// if the direction is down then we use that number,
 					// else, we want to trigger the previous one
 					var nextStep = direction === 'down' ? step : Math.max(0, step - 1)
@@ -184,19 +192,14 @@
 				},
 				offset: '50%',  // trigger halfway up the viewport
 			})
-		}
+		})
 
 		// small function for handling all the class changes
-		 // of entering/exiting
+		// of entering/exiting
 		var toggle = function(fixed, bottom) {
-			if (fixed) {
-				graphicVisEl.classList.add('is-fixed')
-				graphicVisEl.style.right = rightOffset
-			} else {
-				graphicVisEl.classList.remove('is-fixed')
-				graphicVisEl.style.right = 0
-			}
-			
+			if (fixed) graphicVisEl.classList.add('is-fixed')
+			else graphicVisEl.classList.remove('is-fixed')
+
 			if (bottom) graphicVisEl.classList.add('is-bottom')
 			else graphicVisEl.classList.remove('is-bottom')
 		}
@@ -222,8 +225,107 @@
 		})
 	}
 
+	// #2 ScrollMagic
+	function scrollmagic() {
+		var selector = '.library__scrollmagic'
+		var containerEl = document.querySelector(selector)
+		var graphicEl = containerEl.querySelector('.graphic')
+		var graphicVisEl = containerEl.querySelector('.graphic__vis')
+		var triggerEls = selectionToArray(containerEl.querySelectorAll('.trigger'))
+
+		// this handles all our animations and stuff at each trigger
+		// this can be whatever you want, but just know it does all the vis
+		var graphic = createGraphic(selector)
+
+		// init controller
+		var controller = new ScrollMagic.Controller()
+		
+		// setup a scrollmagic trigger ("scene") for each trigger element
+		var scenes = triggerEls.map(function(el) {
+			// get the step, cast as number					
+			var step = +el.getAttribute('data-step')
+
+			var scene = new ScrollMagic.Scene({
+				triggerElement: el, // our trigger element
+				triggerHook: 'onCenter', // 0.5, defaults to this
+				// duration: el.offsetHeight, // how long it lasts for (in pixels)
+			})
+
+			scene.on('enter', function(event) {
+				// tell our graphic to update with a specific step
+				graphic.update(step)
+			})
+
+			scene.on('leave', function(event) {
+				var nextStep = Math.max(0, step - 1)
+				graphic.update(nextStep)
+			})
+			// add it to controller so it actually fires
+			scene.addTo(controller)
+		})
+
+		// small function for handling all the class changes
+		// of entering/exiting
+		var toggle = function(fixed, bottom) {
+			if (fixed) graphicVisEl.classList.add('is-fixed')
+			else graphicVisEl.classList.remove('is-fixed')
+
+			if (bottom) graphicVisEl.classList.add('is-bottom')
+			else graphicVisEl.classList.remove('is-bottom')
+		}
+
+		var viewportHeight = window.innerHeight
+		var enterScene = new ScrollMagic.Scene({
+			triggerElement: graphicEl,
+			triggerHook: '0',
+			duration: graphicEl.offsetHeight - viewportHeight,
+		})
+
+		enterScene.on('enter', function(event) {
+			var fixed = true
+			var bottom = false
+			toggle(fixed, bottom)
+		})
+
+		enterScene.on('leave', function(event) {
+			var fixed = false
+			var bottom = event.scrollDirection === 'FORWARD'
+			toggle(fixed, bottom)
+		})
+
+		enterScene.addTo(controller)
+	}
+
+	// #3 graph-scroll.js
+	// depends on d3
+	function graphscroll() {
+		var selector = '.library__graphscroll'
+		var containerEl = d3.select(selector)
+		var graphicEl = containerEl.select('.graphic')
+		var graphicVisEl = containerEl.select('.graphic__vis')
+		var triggerEls = containerEl.selectAll('.trigger')
+
+		// this handles all our animations and stuff at each trigger
+		// this can be whatever you want, but just know it does all the vis
+		var graphic = createGraphic(selector)
+
+		d3.graphScroll()
+			.container(graphicEl)
+			.graph(graphicVisEl)
+			.sections(triggerEls)
+			.on('active', function(i) {
+				graphic.update(i)
+			})
+	}
+
 	function init() {
-		waypoints()	
+		waypoints()
+		scrollmagic()
+		graphscroll()
+
+		setTimeout(function() {
+			window.dispatchEvent(new Event('resize'))	
+		}, 100)
 	}
 
 	init()

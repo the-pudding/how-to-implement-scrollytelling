@@ -50,15 +50,27 @@
 				<strong>In this post, I look at how to tackle a simple scroll-driven chart using six different libraries</strong>, and discuss the pros and cons of each implementation. It is inspired by Lisa Charlotte Rost's <a target='_blank' href='https://lisacharlotterost.github.io/2016/05/17/one-chart-code/'>great post</a> about how to make the same chart using 12 different charting libraries. 
 			</p>
 			<p>
-				ICYMI, scrollytelling is when  I'm not going to get into the different types of scrollytelling, or debate the serious ethical and moral implications of the practice. I defer to <a target='_blank' href='https://medium.com/@zanarmstrong/why-choose-scrollytelling-steppers-155a59dd97fe'>these</a> <a target='_blank' href='http://vallandingham.me/scroll_talk/examples/'>posts</a> for scrollytelling primers.
+				I'm not going to get into the different types of scrollytelling, or debate the serious ethical and moral implications of the practice. I defer to <a target='_blank' href='https://medium.com/@zanarmstrong/why-choose-scrollytelling-steppers-155a59dd97fe'>these</a> <a target='_blank' href='http://vallandingham.me/scroll_talk/examples/'>posts</a> for scrollytelling primers.
 			</p>
 			<p>
-				We are going to use the "scroll-to-trigger" pattern, where each trigger element (in this case a block of text) tells the chart to update to a new state. Additionally, we want the chart to stay fixed while the text moves, and have it snap back into place as it enters and exits. It should look something like this: [GIF HERE]
+				We have two goals here:
 			<p>
+			<ol>
+				<li>
+					Using the "scroll-to-trigger" pattern, each trigger element (in our case a block of text) tells the chart to update to a new state.
+				</li>
+				<li>	
+					We want the chart to stay fixed when we while the text moves, and have it snap back into place as it enters and exits.
+				</li>
+			</ol>
+			<p> It should look something like this:</p>
+			<p>[GIF here]</p>
 			<p>
-				Disclaimer: <em>this post does not cover responsive solutions (though you should do it, and most libraries make it pretty painless), so if you had the audacity to resize your browser, refresh the page. I'm not going to cover mobile stuff here, which will probably become its own post soon enough...</em>
+				Disclaimer: <em>this post does not cover responsive solutions (though you should do it, and most libraries make it pretty painless), so if you had the audacity to resize your browser, refresh the page. I'm not going to cover mobile either, which will probably become its own post soon enough...</em>
 			</p>
 		</div>
+
+
 		<div class='library library__waypoints'>
 			<h2 class='library__hed'>#1 - <a href='#'>Waypoints</a></h2>
 			<div class='library__graphic graphic'>
@@ -70,7 +82,7 @@
 				<div class='graphic__vis'></div>
 			</div>
 			<div class='library__results'>
-				<p class='results_graf'>Overall, waypoints is a very solid choice. It has been around for a while, and supports both vanilla JS and jQuery integration. It has an easy to understand API and good documentation. It also a nice a debug extension to reduce some head-scratching. And some nice add-ons for stuff like inview detection, and sticky elements.</p>
+				<p class='results_graf'>Waypoints is a very solid choice. It has been around for a while, and supports both vanilla JS and jQuery integration. It has an easy to understand API and good documentation. It has a good debug extension to reduce some head-scratching, and some nice add-ons for stuff like inview detection and sticky elements.</p>
 				<!-- <div class='results__pros-cons'>
 					<div class='pros-cons pros'>
 						<p class='pros-cons__hed'>Pros</p>
@@ -146,28 +158,93 @@ function waypoints() {
 				</code></pre>
 			</div>
 		</div>
+		
+		<div class='library library__scrollmagic'>
+			<h2 class='library__hed'>#2 - <a href='#'>ScrollMagic</a></h2>
+			<div class='library__graphic graphic'>
+				<div class='graphic__prose'>
+					<p class='trigger' data-step='0'>Step 1 in the graphic. It triggers in the middle of the viewport. For this graphic, step 1 is the same as the initial view so the reader doesn't miss anything.</p>
+					<p class='trigger' data-step='1'>Step 2 arrives. The graphic should be locking into a fixed position right about now. We could have a whole bunch of these "fixed" steps.</p>
+					<p class='trigger' data-step='2'>Step 3 concludes our brief tour. The graphic should now go back to its original in-flow position, elegantly falling back into place.</p>
+				</div>
+				<div class='graphic__vis'></div>
+			</div>
+			<div class='library__results'>
+				<p class='results_graf'></p>
+				<!-- <div class='results__pros-cons'>
+					<div class='pros-cons pros'>
+						<p class='pros-cons__hed'>Pros</p>
+						<ul class='pros-cons__list'>
+							<li>Thing 1</li>
+						</ul>
+					</div>
+					<div class='pros-cons cons'>
+						<p class='pros-cons__hed'>Cons</p>
+						<ul class='pros-cons__list'>
+							<li>Thing 1</li>
+						</ul>
+					</div>
+				</div> -->
+			</div>
+			<div class='library__code'>
+				<pre><code class='language-js'>
+				</code></pre>
+			</div>
+		</div>
+
+		<div class='library library__graphscroll'>
+			<h2 class='library__hed'>#3 - <a href='#'>graph-scroll.js</a></h2>
+			<div class='library__graphic graphic'>
+				<div class='graphic__prose'>
+					<p class='trigger' data-step='0'>Step 1 in the graphic. It triggers in the middle of the viewport. For this graphic, step 1 is the same as the initial view so the reader doesn't miss anything.</p>
+					<p class='trigger' data-step='1'>Step 2 arrives. The graphic should be locking into a fixed position right about now. We could have a whole bunch of these "fixed" steps.</p>
+					<p class='trigger' data-step='2'>Step 3 concludes our brief tour. The graphic should now go back to its original in-flow position, elegantly falling back into place.</p>
+				</div>
+				<div class='graphic__vis'></div>
+			</div>
+			<div class='library__results'>
+				<p class='results_graf'></p>
+				<!-- <div class='results__pros-cons'>
+					<div class='pros-cons pros'>
+						<p class='pros-cons__hed'>Pros</p>
+						<ul class='pros-cons__list'>
+							<li>Thing 1</li>
+						</ul>
+					</div>
+					<div class='pros-cons cons'>
+						<p class='pros-cons__hed'>Cons</p>
+						<ul class='pros-cons__list'>
+							<li>Thing 1</li>
+						</ul>
+					</div>
+				</div> -->
+			</div>
+			<div class='library__code'>
+				<pre><code class='language-js'>
+				</code></pre>
+			</div>
+		</div>
+
+
 		<div class='outro'>
 			<p>Outro</p>
 		</div>
 	</main>
 
 	<script src='js/libs/d3.v4.min.js'></script>
-
+	<script src='js/prism.js'></script>
 	
 
 	<!-- The scroll libraries -->
 	
-	<!-- https://terwanerik.github.io/ScrollTrigger/ -->
-	<script src='js/libs/ScrollTrigger.min.js'></script>
-
 	<!-- http://imakewebthings.com/waypoints/ -->
 	<script src='js/libs/noframework.waypoints.min.js'></script>
 	
-	<!-- https://1wheel.github.io/graph-scroll/ -->
-	<script src='js/libs/graph-scroll.js'></script>
-
 	<!-- http://scrollmagic.io/ -->
 	<script src='js/libs/ScrollMagic.min.js'></script>
+
+	<!-- https://1wheel.github.io/graph-scroll/ -->
+	<script src='js/libs/graph-scroll.js'></script>
 
 	<!-- https://github.com/sjwilliams/scrollstory -->
 	<script src='js/libs/jquery-3.1.1.min.js'></script>
@@ -181,7 +258,6 @@ function waypoints() {
 	
 	<!-- The code to scroll the story -->
 	<script src='js/entry.js'></script>
-	<script src='js/prism.js'></script>
 	<!-- <script src="https://pudding.cool/assets/scripts/pudding-footer.js"></script> -->
 	<script id="__bs_script__">//<![CDATA[
 	    document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.17.5'><\/script>".replace("HOST", location.hostname));

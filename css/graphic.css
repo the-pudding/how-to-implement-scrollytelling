@@ -1,7 +1,6 @@
 /* GRAPHIC CODE */
 .graphic {
-	max-width: 60rem;
-	margin: 0 auto;
+	width: 100%;
 	position: relative;
 }
 
@@ -12,12 +11,13 @@
 .graphic__prose .trigger {
 	padding: 2rem 1em;
 	min-height: 240px;
+	margin: 0;
 }
 
 .graphic__vis {
 	position: absolute;
-	right: 0;
 	top: 0;
+	margin-left: 30rem;
 	-webkit-transform: translate3d(0, 0, 0);
 	-moz-transform: translate3d(0, 0, 0);
 	transform: translate3d(0, 0, 0);
@@ -33,11 +33,24 @@
 	bottom: 0;
 }
 
+/* graph-scroll.js version */
+.graphic__vis.graph-scroll-fixed {
+	position: fixed;
+	right: auto;
+}
+
+.graphic__vis.graph-scroll-below {
+	top: auto;
+	bottom: 0;
+}
+
 .graphic__vis svg {
 	border: 1px dashed black;
-	position: absolute;
 	top: 50%;
-	right: 0;
+	position: relative;
+	/*position: absolute;
+	top: 50%;
+	right: 0;*/
 	-webkit-transform: translateY(-50%);
 	-moz-transform: translateY(-50%);
 	transform: translateY(-50%);

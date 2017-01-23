@@ -32,14 +32,17 @@ a {
 }
 
 .library {
-	padding: 2rem 0;
+	padding: 1rem 0;
+	margin: 2rem auto;
+	max-width: 60rem;
 }
 
 .library__hed {
 	text-align: center;
-	font-size: 1.5rem;
+	font-size: 1.25rem;
 	text-transform: uppercase;
 	padding: 1rem 0;
+	font-weight: 700;
 }
 
 .library__results {
@@ -76,4 +79,12 @@ background-color: rgba(255, 242, 174, 0.5);*/
 
 .library__waypoints {
 	background-color: rgba(179, 226, 205, 0.5);
+}
+
+.library__scrollmagic {
+	background-color: rgba(253, 205, 172, 0.5);
+}
+
+.library__graphscroll {
+	background-color: rgba(203, 213, 232, 0.5);
 }
