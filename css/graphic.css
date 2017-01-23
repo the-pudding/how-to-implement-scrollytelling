@@ -33,24 +33,10 @@
 	bottom: 0;
 }
 
-/* graph-scroll.js version */
-.graphic__vis.graph-scroll-fixed {
-	position: fixed;
-	right: auto;
-}
-
-.graphic__vis.graph-scroll-below {
-	top: auto;
-	bottom: 0;
-}
-
 .graphic__vis svg {
 	border: 1px dashed black;
 	top: 50%;
 	position: relative;
-	/*position: absolute;
-	top: 50%;
-	right: 0;*/
 	-webkit-transform: translateY(-50%);
 	-moz-transform: translateY(-50%);
 	transform: translateY(-50%);
@@ -68,4 +54,17 @@
 	font-size: 12px;
 	text-anchor: middle;
 	alignment-baseline: middle;
+}
+
+
+
+/* graph-scroll.js version */
+.graphic__vis.graph-scroll-fixed {
+	position: fixed;
+	right: auto;
+}
+
+.graphic__vis.graph-scroll-below {
+	top: auto;
+	bottom: 0;
 }

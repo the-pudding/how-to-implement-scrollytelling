@@ -1,4 +1,11 @@
 (function() {
+	/* 
+		I've created a function here that is a simple d3 chart.
+		This could be anthing that has discrete steps, as simple as changing
+		the background color, or playing/pausing a video.
+		The important part is that it exposes and update function that
+		calls a new thing on a scroll trigger.
+	*/
 	function createGraphic(librarySelector) {
 		var container = d3.select(librarySelector)
 		var graphicEl = container.select('.graphic')
@@ -341,9 +348,9 @@
 			else graphicVisEl.classList.remove('is-bottom')
 		}
 
-		const halfHeight = Math.floor(window.innerHeight / 2)
+		var halfHeight = Math.floor(window.innerHeight / 2)
 		
-		const inviewTrigger = inView()
+		var inviewTrigger = inView()
 
 		inviewTrigger.offset({
 			top: 0,
@@ -357,9 +364,6 @@
 			.on('enter', function(el) {
 				var step = +el.getAttribute('data-step')
 				graphic.update(step)
-			})
-			.on('exit', function(el) {
-				// console.log('exit', el)
 			})
 
 		var inviewTop = inView()
@@ -376,11 +380,13 @@
 				var fixed = true
 				var bottom = false
 				toggle(fixed, bottom)
+				console.log('enter top')
 			})
 			.on('exit', function(el) {
 				var fixed = false
 				var bottom = false
 				toggle(fixed, bottom)
+				console.log('exit top')
 			})
 
 		var inviewBottom = inView()
@@ -397,12 +403,69 @@
 				var fixed = false
 				var bottom = true
 				toggle(fixed, bottom)
+				console.log('enter bottom')
 			})
 			.on('exit', function(el) {
 				var fixed = true
 				var bottom = false
 				toggle(fixed, bottom)
+				console.log('exit bottom')
 			})
+	}
+
+	// #5 ScrollStory
+	function scrollstory() {
+		var selector = '.library__scrollstory'
+		var $containerEl = $(selector)
+		var graphicEl = $containerEl.find('.graphic')[0]
+		var graphicVisEl = $containerEl.find('.graphic__vis')[0]
+		// var triggerEls = selectionToArray(containerEl.querySelectorAll('.trigger'))
+
+		var graphic = createGraphic(selector)
+
+		var toggle = function(fixed, bottom) {
+			if (fixed) graphicVisEl.classList.add('is-fixed')
+			else graphicVisEl.classList.remove('is-fixed')
+
+			if (bottom) graphicVisEl.classList.add('is-bottom')
+			else graphicVisEl.classList.remove('is-bottom')
+		}
+
+		var halfHeight = Math.floor(window.innerHeight / 2)
+
+		var handleItemFocus = function(event, item) {
+			var step = item.data.step
+			graphic.update(step)
+		}	
+
+		var handleContainerScroll = function(event) {
+			var bb = graphicEl.getBoundingClientRect()
+			var top = bb.top
+			var bottom = bb.bottom
+			var height = bb.height
+			var bottomFromTop = bottom - window.innerHeight
+			console.log(top, bottomFromTop)
+			// above
+			var bottom = false
+			var fixed = false
+			if (top < 0 && bottomFromTop > 0) {
+				bottom = false
+				fixed = true
+			} else if (top < 0 && bottomFromTop < 0) {
+				bottom = true
+				fixed = false
+			}
+			toggle(fixed, bottom)
+		}
+
+		$containerEl.scrollStory({
+			contentSelector: '.trigger',
+			triggerOffset: halfHeight,
+			itemfocus: handleItemFocus,
+			containerscroll: handleContainerScroll,
+		})
+
+
 	}
 
 	function init() {
@@ -410,6 +473,7 @@
 		scrollmagic()
 		graphscroll()
 		inview()
+		scrollstory()
 
 		// hack to tell brower to resize since prism takes a second
 		// to affect style/height
