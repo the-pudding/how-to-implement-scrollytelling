@@ -38,12 +38,25 @@ ol {
 }
 
 .disclaimer {
+	clear: both;
 	font-size: 0.9rem;
+}
+
+
+.video-demo {
+	max-width: 50%;
+	float: right;
+	display: inline-block;
+	margin-left: 1rem;
+	margin-bottom: 1rem;
+	height: 243px;
+	border: 1px solid #ccc;
 }
 
 .outro {
 	min-height: 120vh;
 }
+
 
 .library {
 	padding: 1rem 0;

@@ -56,18 +56,11 @@
 				I'm not going to get into the different types of scrollytelling, or debate the serious ethical and moral implications of the practice. I defer to <a target='_blank' href='https://medium.com/@zanarmstrong/why-choose-scrollytelling-steppers-155a59dd97fe'>these</a> <a target='_blank' href='http://vallandingham.me/scroll_talk/examples/'>posts</a> for scrollytelling primers.
 			</p>
 			<p>
-				We have two goals here:
-			<p>
-			<ol>
-				<li>
-					1. Using the "scroll-to-trigger" pattern, each trigger element (in our case a block of text) tells the chart to update to a new state.
-				</li>
-				<li>	
-					2. We want the chart to stay fixed when we while the text moves, and have it snap back into place as it enters and exits.
-				</li>
-			</ol>
-			<p> It should look something like this:</p>
-			<p>[GIF here]</p>
+				<video class='video-demo' src='assets/demo.mp4' preload autoplay loop></video>
+				We have two goals here: <br>
+				1. Use the "scroll-to-trigger" pattern where trigger element (in our case a block of text) tells the chart to update to a new state. <br>
+				2. We want the chart to stay fixed while the text moves, and have it snap back into place as it enters and exits.
+			</p>
 			<p class='disclaimer'>
 				Disclaimer: <em>this post does not cover responsive solutions (though you should do it, and most libraries make it pretty painless), so if you had the audacity to resize your browser, refresh the page. I'm not going to cover mobile either, which will probably become its own post soon enough...</em>
 			</p>
@@ -78,86 +71,18 @@
 			<h2 class='library__hed'>#1 - <a href='#'>Waypoints</a></h2>
 			<div class='library__graphic graphic'>
 				<div class='graphic__prose'>
-					<p class='trigger' data-step='0'>Step 1 in the graphic. It triggers in the middle of the viewport. For this graphic, step 1 is the same as the initial view so the reader doesn't miss anything.</p>
-					<p class='trigger' data-step='1'>Step 2 arrives. The graphic should be locking into a fixed position right about now. We could have a whole bunch of these "fixed" steps.</p>
-					<p class='trigger' data-step='2'>Step 3 concludes our brief tour. The graphic should now go back to its original in-flow position, elegantly falling back into place.</p>
+					<p class='trigger' data-step='0'><span>Step 1 in the graphic. It triggers in the middle of the viewport. For this graphic, step 1 is the same as the initial view so the reader doesn't miss anything.</span></p>
+					<p class='trigger' data-step='1'><span>Step 2 arrives. The graphic should be locking into a fixed position right about now. We could have a whole bunch of these "fixed" steps.</span></p>
+					<p class='trigger' data-step='2'><span>Step 3 concludes our brief tour. The graphic should now go back to its original in-flow position, elegantly falling back into place.</span></p>
 				</div>
 				<div class='graphic__vis'></div>
 			</div>
 			<div class='library__results'>
 				<p class='results_graf'>Waypoints is a very solid choice. It has been around for a while, and supports both vanilla JS and jQuery integration. It has an easy to understand API and good documentation. It has a good debug extension to reduce some head-scratching, and some nice add-ons for stuff like inview detection and sticky elements.</p>
-				<!-- <div class='results__pros-cons'>
-					<div class='pros-cons pros'>
-						<p class='pros-cons__hed'>Pros</p>
-						<ul class='pros-cons__list'>
-							<li>Thing 1</li>
-						</ul>
-					</div>
-					<div class='pros-cons cons'>
-						<p class='pros-cons__hed'>Cons</p>
-						<ul class='pros-cons__list'>
-							<li>Thing 1</li>
-						</ul>
-					</div>
-				</div> -->
 			</div>
 			<div class='library__code'>
 				<pre><code class='language-js'>
-function waypoints() {
-	var selector = '.library__waypoints'
-	var containerEl = document.querySelector(selector)
-	var graphicEl = containerEl.querySelector('.graphic')
-	var graphicVisEl = containerEl.querySelector('.graphic__vis')
-	var triggerEls = containerEl.querySelectorAll('.trigger')
 
-	var rightOffset = graphicEl.getBoundingClientRect().left + 'px'
-	var graphic = createGraphic(selector)
-	
-	for (var i = 0; i < triggerEls.length; i++) {
-		new Waypoint({
-			element: triggerEls[i],
-			handler: function(direction) {
-				var step = +this.element.getAttribute('data-step')
-				var nextStep = direction === 'down' ? step : Math.max(0, step - 1)
-
-				graphic.update(nextStep)
-			},
-			offset: '50%',
-		})
-	}
-
-	var toggle = function(fixed, bottom) {
-		if (fixed) {
-			graphicVisEl.classList.add('is-fixed')
-			graphicVisEl.style.right = rightOffset
-		} else {
-			graphicVisEl.classList.remove('is-fixed')
-			graphicVisEl.style.right = 0
-		}
-		
-		if (bottom) graphicVisEl.classList.add('is-bottom')
-		else graphicVisEl.classList.remove('is-bottom')
-	}
-
-	var enterWaypoint = new Waypoint({
-		element: containerEl,
-		handler: function(direction) {
-			var fixed = direction === 'down'
-			var bottom = false
-			toggle(fixed, bottom)
-		},
-	})
-
-	var exitWaypoint = new Waypoint({
-		element: containerEl,
-		handler: function(direction) {
-			var fixed = direction === 'up'
-			var bottom = !fixed
-			toggle(fixed, bottom)
-		},
-		offset: 'bottom-in-view',
-	})
-}
 				</code></pre>
 			</div>
 		</div>
@@ -174,20 +99,6 @@ function waypoints() {
 			</div>
 			<div class='library__results'>
 				<p class='results_graf'></p>
-				<!-- <div class='results__pros-cons'>
-					<div class='pros-cons pros'>
-						<p class='pros-cons__hed'>Pros</p>
-						<ul class='pros-cons__list'>
-							<li>Thing 1</li>
-						</ul>
-					</div>
-					<div class='pros-cons cons'>
-						<p class='pros-cons__hed'>Cons</p>
-						<ul class='pros-cons__list'>
-							<li>Thing 1</li>
-						</ul>
-					</div>
-				</div> -->
 			</div>
 			<div class='library__code'>
 				<pre><code class='language-js'>
@@ -207,20 +118,6 @@ function waypoints() {
 			</div>
 			<div class='library__results'>
 				<p class='results_graf'>Couldn't use without tweaking library to accept offset customization (link to PR).</p>
-				<!-- <div class='results__pros-cons'>
-					<div class='pros-cons pros'>
-						<p class='pros-cons__hed'>Pros</p>
-						<ul class='pros-cons__list'>
-							<li>Thing 1</li>
-						</ul>
-					</div>
-					<div class='pros-cons cons'>
-						<p class='pros-cons__hed'>Cons</p>
-						<ul class='pros-cons__list'>
-							<li>Thing 1</li>
-						</ul>
-					</div>
-				</div> -->
 			</div>
 			<div class='library__code'>
 				<pre><code class='language-js'>
@@ -240,20 +137,6 @@ function waypoints() {
 			</div>
 			<div class='library__results'>
 				<p class='results_graf'>Couldn't use without exporting singleton (link to Gabriel's version). Also had to do some strange offset hacking so it didn't trigger the enter/exit states incorrectly. In short, this library is amazingly simple to use for just triggering, but doing anything highly customized (like sticky) is a pain.</p>
-				<!-- <div class='results__pros-cons'>
-					<div class='pros-cons pros'>
-						<p class='pros-cons__hed'>Pros</p>
-						<ul class='pros-cons__list'>
-							<li>Thing 1</li>
-						</ul>
-					</div>
-					<div class='pros-cons cons'>
-						<p class='pros-cons__hed'>Cons</p>
-						<ul class='pros-cons__list'>
-							<li>Thing 1</li>
-						</ul>
-					</div>
-				</div> -->
 			</div>
 			<div class='library__code'>
 				<pre><code class='language-js'>
@@ -273,20 +156,6 @@ function waypoints() {
 			</div>
 			<div class='library__results'>
 				<p class='results_graf'>Manually calculate enter/exit on scroll</p>
-				<!-- <div class='results__pros-cons'>
-					<div class='pros-cons pros'>
-						<p class='pros-cons__hed'>Pros</p>
-						<ul class='pros-cons__list'>
-							<li>Thing 1</li>
-						</ul>
-					</div>
-					<div class='pros-cons cons'>
-						<p class='pros-cons__hed'>Cons</p>
-						<ul class='pros-cons__list'>
-							<li>Thing 1</li>
-						</ul>
-					</div>
-				</div> -->
 			</div>
 			<div class='library__code'>
 				<pre><code class='language-js'>
@@ -306,20 +175,6 @@ function waypoints() {
 			</div>
 			<div class='library__results'>
 				<p class='results_graf'>Manually calculate enter/exit on scroll</p>
-				<!-- <div class='results__pros-cons'>
-					<div class='pros-cons pros'>
-						<p class='pros-cons__hed'>Pros</p>
-						<ul class='pros-cons__list'>
-							<li>Thing 1</li>
-						</ul>
-					</div>
-					<div class='pros-cons cons'>
-						<p class='pros-cons__hed'>Cons</p>
-						<ul class='pros-cons__list'>
-							<li>Thing 1</li>
-						</ul>
-					</div>
-				</div> -->
 			</div>
 			<div class='library__code'>
 				<pre><code class='language-js'>
