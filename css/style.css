@@ -4,18 +4,17 @@
 body {
 	font-size: 17px;
 	font-weight: 400;
-	background-color: #fcfcfc;
+	background-color: #fffffc;
 	color: #1a1a1a;
 	/*font-family: Helvetica, sans-serif;*/
 	line-height: 1.8;
 	font-family: 'Whitney SSm A', 'Whitney SSm B', Helvetica, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing:grayscale;
-	/*font-family: 'Mercury SSm A', 'Mercury SSm B', Georgia, serif;*/
 }
 
 main {
-
+	padding-bottom: 5rem;
 }
 
 p {
@@ -37,6 +36,29 @@ ol {
 	margin: 2rem auto;
 }
 
+.hed {
+	font-family: 'Mercury SSm A', 'Mercury SSm B', Georgia, serif;
+	font-size: 2rem;
+	font-weight: bold;
+	line-height: 1.4;
+	margin-bottom: 3rem;
+}
+
+.byline {
+	color: #777;
+	height: 100%;
+	overflow: hidden;
+}
+
+.byline__author {
+	float: left;
+	/*display: block;*/
+}
+
+.byline__date {
+	float: right;
+}
+
 .disclaimer {
 	clear: both;
 	font-size: 0.9rem;
@@ -50,11 +72,12 @@ ol {
 	margin-left: 1rem;
 	margin-bottom: 1rem;
 	height: 243px;
-	border: 1px solid #ccc;
+	border: 1px solid #eee;
 }
 
 .outro {
-	min-height: 120vh;
+	max-width: 40rem;
+	margin: 0 auto;
 }
 
 
@@ -97,12 +120,6 @@ ol {
 .library__code.is-reveal {
 	height: auto;
 }
-/*background-color: rgba(179, 226, 205, 0.5);
-background-color: rgba(253, 205, 172, 0.5);
-background-color: rgba(203, 213, 232, 0.5);
-background-color: rgba(244, 202, 228, 0.5);
-background-color: rgba(230, 245, 201, 0.5);
-background-color: rgba(255, 242, 174, 0.5);*/
 
 .library__waypoints {
 	background-color: rgba(179, 226, 205, 0.5);
@@ -126,4 +143,17 @@ background-color: rgba(255, 242, 174, 0.5);*/
 
 .library__rollyourown {
 	background-color: rgba(255, 242, 174, 0.5);
+}
+
+.logo {
+	margin: 0 auto;
+	max-width: 55px;
+	display: block;
+	text-align: center;
+	border: none;
+}
+
+.logo__svg {
+	width: 55px;
+	height: 55px;
 }
