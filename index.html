@@ -71,26 +71,24 @@
 		</div>
 
 
-		<div class='library library__waypoints'>
-			<h2 class='library__hed'>#1 - <a target='_blank' href='http://imakewebthings.com/waypoints/'>Waypoints</a></h2>
-			<div class='library__graphic graphic'>
-				<div class='graphic__prose'>
-					<p class='trigger' data-step='0'>Step 1 in the graphic. It triggers in the middle of the viewport. For this graphic, it is the same as the initial state so the reader doesn&rsquo;t miss anything.</p>
-					<p class='trigger' data-step='1'>Step 2 arrives. The graphic should be locking into a fixed position right about now. We could have a whole bunch of these &ldquo;fixed&rdquo; steps.</p>
-					<p class='trigger' data-step='2'>Step 3 concludes our brief tour. The graphic should now go back to its original in-flow position, elegantly snapping back into place.</p>
-				</div>
-				<div class='graphic__vis'></div>
+		<div id='waypoints' class='library library__waypoints'>
+			<div class='library__text'>
+				<h2 class='library__hed'>#1 - <a target='_blank' href='http://imakewebthings.com/waypoints/'>Waypoints</a></h2>
+
+				<p class='library__review'>
+					Waypoints is a very solid choice. It has been around for a while, and supports both vanilla JS and jQuery integration. It has an easy to understand API, and good documentation. It has a lot of add-ons, like a debugger extension to reduce some head-scratching, and stuff like inview detection and sticky elements.
+				</p>
+				
+				<p class='library__demo'><a href='demo/waypoints'>Demo &rarr;</a></p>
 			</div>
-			<div class='library__results'>
-				<p class='results_graf'>Waypoints is a very solid choice. It has been around for a while, and supports both vanilla JS and jQuery integration. It has an easy to understand API, and good documentation. It has a lot of add-ons, like a debugger extension to reduce some head-scratching, and stuff like inview detection and sticky elements.</p>
-			</div>
+
 			<div class='library__code'>
 				<pre><code class='language-js'>
 
 				</code></pre>
 			</div>
 		</div>
-		
+		<!-- 
 		<div class='library library__scrollmagic'>
 			<h2 class='library__hed'>#2 - <a target='_blank' href='http://scrollmagic.io/'>ScrollMagic</a></h2>
 			<div class='library__graphic graphic'>
@@ -184,11 +182,11 @@
 				<pre><code class='language-js'>
 				</code></pre>
 			</div>
-		</div>
+		</div> -->
 
 
 		<div class='outro'>
-			<p>TLDR; it all depends on what your use case is. For highly customized stories will need either Waypoints, ScrollMagic, or roll your own. Simple d3 projects can take advantage of graph-scroll.js. Really basic stuff can be done with in-view.js.</p>
+			<p>The best library all depends on your use case. For highly customized stories, you will need either Waypoints, ScrollMagic, or roll your own. Simple d3 projects can take advantage of graph-scroll.js. Really basic stuff can be done with in-view.js. If you need jQuery, ScrollStory is not a bad place to start.</p>
 		</div>
 		<a href='https://pudding.cool' class='logo'>
 			<svg version="1.1" class="logo__svg" x="0" y="0" viewBox="0 0 165 153.8" enable-background="new 0 0 165 153.8" xml:space="preserve">
@@ -197,31 +195,29 @@
 		</a>
 	</main>
 
-	<script src='js/libs/d3.v4.min.js'></script>
+	<!-- <script src='js/libs/d3.v4.min.js'></script> -->
 	<script src='js/prism.js'></script>
 	
 
 	<!-- The scroll libraries -->
 	
-	<!-- http://imakewebthings.com/waypoints/ -->
-	<script src='js/libs/noframework.waypoints.min.js'></script>
-	
 	<!-- http://scrollmagic.io/ -->
-	<script src='js/libs/ScrollMagic.min.js'></script>
+	<!-- <script src='js/libs/ScrollMagic.min.js'></script> -->
 
 	<!-- https://1wheel.github.io/graph-scroll/ -->
-	<script src='js/libs/graph-scroll.js'></script>
+	<!-- <script src='js/libs/graph-scroll.js'></script> -->
 
 	<!-- https://camwiegert.github.io/in-view/ -->
-	<script src='js/libs/in-view.min.js'></script>
+	<!-- <script src='js/libs/in-view.min.js'></script> -->
 
 	<!-- https://github.com/sjwilliams/scrollstory -->
-	<script src='js/libs/jquery-3.1.1.min.js'></script>
-	<script src='js/libs/jquery.scrollstory.min.js'></script>
+	<!-- <script src='js/libs/jquery-3.1.1.min.js'></script> -->
+	<!-- <script src='js/libs/jquery.scrollstory.min.js'></script> -->
 
 	
 	<!-- The code to scroll the story -->
-	<script src='js/entry.js'></script>
+	<!-- <script src='js/entry.js'></script> -->
+
 	<!-- <script src="https://pudding.cool/assets/scripts/pudding-footer.js"></script> -->
 	<script id="__bs_script__">//<![CDATA[
 	    document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.17.5'><\/script>".replace("HOST", location.hostname));

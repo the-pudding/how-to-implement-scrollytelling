@@ -24,10 +24,14 @@ p {
 a {
 	color: #1a1a1a;
 	text-decoration: none;
-	border-bottom: 2px solid currentColor;
+	border-bottom: 1px dotted currentColor;
 }
 
-ol {
+a:hover {
+	color: #f33;
+}
+
+ol, ul {
 	list-style-type: none;
 }
 
@@ -42,6 +46,10 @@ ol {
 	font-weight: bold;
 	line-height: 1.4;
 	margin-bottom: 3rem;
+}
+
+.hed a {
+	border: none;
 }
 
 .byline {
@@ -87,40 +95,35 @@ ol {
 	max-width: 60rem;
 }
 
+.library__text {
+	margin: 0 auto;
+	max-width: 40rem;
+}
+
 .library__hed {
-	text-align: center;
 	font-size: 1.25rem;
 	text-transform: uppercase;
-	padding: 1rem 0 2rem 0;
 	font-weight: 700;
 }
 
-.library__results {
-	max-width: 40rem;
-	margin: 0 auto;
-	border-top: 1px dashed #1a1a1a;
+
+.library__review {
+
 }
 
-.results__pros-cons {
-	height: 100%;
-	overflow: hidden;
-}
-
-.pros-cons {
-	width: 50%;
-	float: left;
+.library__demo {
+	text-transform: uppercase;
 }
 
 .library__code {
-	max-width: 50rem;
 	margin: 2rem auto;
-	font-size: 0.9rem;
+	font-size: 0.85rem;
 }
 
 .library__code.is-reveal {
 	height: auto;
 }
-
+/*
 .library__waypoints {
 	background-color: rgba(179, 226, 205, 0.5);
 }
@@ -143,7 +146,7 @@ ol {
 
 .library__rollyourown {
 	background-color: rgba(255, 242, 174, 0.5);
-}
+}*/
 
 .logo {
 	margin: 0 auto;
@@ -153,7 +156,28 @@ ol {
 	border: none;
 }
 
+.logo.spacer {
+	margin: 15vh auto;
+}
+
 .logo__svg {
 	width: 55px;
 	height: 55px;
+}
+
+.back-to-blog {
+	text-align: center;
+}
+
+.demo-links {
+	height: 100%;
+	overflow: hidden;
+	max-width: 40rem;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.demo-links li {
+	float: left;
+	margin-right: 1rem;
 }
