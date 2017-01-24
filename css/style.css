@@ -1,11 +1,17 @@
 /* reset stuff */
-*{box-sizing:border-box}a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section{display:block}body,html{height:100%}a img{border:none}blockquote{quotes:none}blockquote:after,blockquote:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}caption,td,th{text-align:left;font-weight:400;vertical-align:middle}html{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;text-size-adjust:100%}body{font-feature-settings:'kern' 1,'onum' 1,'liga' 0;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}b,strong{font-weight:700}em,i{font-style:italic}ul{list-style-type:none}img,video{display:block;width:100%}button{cursor:pointer;border:none;outline:0;margin:0;padding:0;font-size:1rem}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}.hide-accessible{width:1px;height:1px;overflow:hidden;position:absolute}.hide-invisible{visibility:hidden}.hide-display{display:none}.tk-whitney{font-family:Helvetica,Arial,sans-serif;letter-spacing:.04em;font-weight:300}.loaded-whitney .tk-whitney{font-family:'Whitney SSm A','Whitney SSm B',Helvetica,Arial,sans-serif;letter-spacing:normal}.tk-mercury{font-family:Georgia,Times,serif;letter-spacing:.04em;font-weight:400}.loaded-mercury .tk-mercury{font-family:'Mercury SSm A','Mercury SSm B',Georgia,Times,serif;letter-spacing:normal}body{background:#fff;font-size:17px}@media only screen and (min-width:25em){.hack-for-mq-cache{height:0}}@media only screen and (min-width:40em){.hack-for-mq-cache{height:0}}@media only screen and (min-width:50em){.hack-for-mq-cache{height:0}}@media only screen and (min-width:60em){.hack-for-mq-cache{height:0}}
+*{box-sizing:border-box}a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section{display:block}body,html{height:100%}a img{border:none}blockquote{quotes:none}blockquote:after,blockquote:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}caption,td,th{text-align:left;font-weight:400;vertical-align:middle}html{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;text-size-adjust:100%}body{font-feature-settings:'kern' 1,'onum' 1,'liga' 0;}b,strong{font-weight:700}em,i{font-style:italic}ul{list-style-type:none}img,video{display:block;width:100%}button{cursor:pointer;border:none;outline:0;margin:0;padding:0;font-size:1rem}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}.hide-accessible{width:1px;height:1px;overflow:hidden;position:absolute}.hide-invisible{visibility:hidden}.hide-display{display:none}.tk-whitney{font-family:Helvetica,Arial,sans-serif;letter-spacing:.04em;font-weight:300}.loaded-whitney .tk-whitney{font-family:'Whitney SSm A','Whitney SSm B',Helvetica,Arial,sans-serif;letter-spacing:normal}.tk-mercury{font-family:Georgia,Times,serif;letter-spacing:.04em;font-weight:400}.loaded-mercury .tk-mercury{font-family:'Mercury SSm A','Mercury SSm B',Georgia,Times,serif;letter-spacing:normal}body{background:#fff;font-size:17px}@media only screen and (min-width:25em){.hack-for-mq-cache{height:0}}@media only screen and (min-width:40em){.hack-for-mq-cache{height:0}}@media only screen and (min-width:50em){.hack-for-mq-cache{height:0}}@media only screen and (min-width:60em){.hack-for-mq-cache{height:0}}
 
 body {
 	font-size: 17px;
+	font-weight: 400;
+	background-color: #fcfcfc;
 	color: #1a1a1a;
-	font-family: Helvetica, sans-serif;
-	line-height: 1.6;
+	/*font-family: Helvetica, sans-serif;*/
+	line-height: 1.8;
+	font-family: 'Whitney SSm A', 'Whitney SSm B', Helvetica, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing:grayscale;
+	/*font-family: 'Mercury SSm A', 'Mercury SSm B', Georgia, serif;*/
 }
 
 main {
@@ -13,7 +19,7 @@ main {
 }
 
 p {
-	margin: 1rem 0;
+	margin: 1.5rem 0;
 }
 
 a {
@@ -22,9 +28,17 @@ a {
 	border-bottom: 2px solid currentColor;
 }
 
+ol {
+	list-style-type: none;
+}
+
 .intro {
 	max-width: 40rem;
 	margin: 2rem auto;
+}
+
+.disclaimer {
+	font-size: 0.9rem;
 }
 
 .outro {
