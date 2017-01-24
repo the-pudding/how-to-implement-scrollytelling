@@ -239,7 +239,7 @@ function waypoints() {
 				<div class='graphic__vis'></div>
 			</div>
 			<div class='library__results'>
-				<p class='results_graf'>Couldn't use without exporting singleton (link to Gabriel's version).</p>
+				<p class='results_graf'>Couldn't use without exporting singleton (link to Gabriel's version). Also had to do some strange offset hacking so it didn't trigger the enter/exit states incorrectly. In short, this library is amazingly simple to use for just triggering, but doing anything highly customized (like sticky) is a pain.</p>
 				<!-- <div class='results__pros-cons'>
 					<div class='pros-cons pros'>
 						<p class='pros-cons__hed'>Pros</p>
@@ -263,6 +263,39 @@ function waypoints() {
 
 		<div class='library library__scrollstory'>
 			<h2 class='library__hed'>#5 - <a href='#'>ScrollStory</a></h2>
+			<div class='library__graphic graphic'>
+				<div class='graphic__prose'>
+					<p class='trigger' data-step='0'>Step 1 in the graphic. It triggers in the middle of the viewport. For this graphic, step 1 is the same as the initial view so the reader doesn't miss anything.</p>
+					<p class='trigger' data-step='1'>Step 2 arrives. The graphic should be locking into a fixed position right about now. We could have a whole bunch of these "fixed" steps.</p>
+					<p class='trigger' data-step='2'>Step 3 concludes our brief tour. The graphic should now go back to its original in-flow position, elegantly falling back into place.</p>
+				</div>
+				<div class='graphic__vis'></div>
+			</div>
+			<div class='library__results'>
+				<p class='results_graf'>Manually calculate enter/exit on scroll</p>
+				<!-- <div class='results__pros-cons'>
+					<div class='pros-cons pros'>
+						<p class='pros-cons__hed'>Pros</p>
+						<ul class='pros-cons__list'>
+							<li>Thing 1</li>
+						</ul>
+					</div>
+					<div class='pros-cons cons'>
+						<p class='pros-cons__hed'>Cons</p>
+						<ul class='pros-cons__list'>
+							<li>Thing 1</li>
+						</ul>
+					</div>
+				</div> -->
+			</div>
+			<div class='library__code'>
+				<pre><code class='language-js'>
+				</code></pre>
+			</div>
+		</div>
+
+		<div class='library library__rollyourown'>
+			<h2 class='library__hed'>#6 - <a href='#'>Roll your own</a></h2>
 			<div class='library__graphic graphic'>
 				<div class='graphic__prose'>
 					<p class='trigger' data-step='0'>Step 1 in the graphic. It triggers in the middle of the viewport. For this graphic, step 1 is the same as the initial view so the reader doesn't miss anything.</p>
