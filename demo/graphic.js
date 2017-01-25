@@ -1,6 +1,12 @@
-window.createGraphic = function(librarySelector) {
-	var container = d3.select(librarySelector)
-	var graphicEl = container.select('.graphic')
+/* 
+	I've created a function here that is a simple d3 chart.
+	This could be anthing that has discrete steps, as simple as changing
+	the background color, or playing/pausing a video.
+	The important part is that it exposes and update function that
+	calls a new thing on a scroll trigger.
+*/
+window.createGraphic = function(graphicSelector) {
+	var graphicEl = d3.select('.graphic')
 	var graphicVisEl = graphicEl.select('.graphic__vis')
 	var graphicProseEl = graphicEl.select('.graphic__prose')
 

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>Scrollytelling - Waypoints</title>
+	<title>Scrollytelling - Roll your own</title>
 
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
 	<meta charset="utf-8">
@@ -36,7 +36,7 @@
 <body>
 	<main>
 		<div class='intro'>
-			<p class='back-to-blog'><a href='../../#waypoints'>&larr; Back to the blog</a></p>
+			<p class='back-to-blog'><a href='../../#rollyourown'>&larr; Back to the blog</a></p>
 			<h1 class='hed'><a href='../../'>How to implement scrollytelling with six different libraries</a></h1>
 		</div>
 
@@ -51,7 +51,7 @@
 		</ul>
 
 		<div class='library'>
-			<h2 class='library__hed'><a target='_blank' href='http://imakewebthings.com/waypoints/'>Waypoints</a></h2>
+			<h2 class='library__hed'><a target='_blank' href='#'>Roll your own</a></h2>
 			<div class='library__graphic graphic'>
 				<div class='graphic__prose'>
 					<p class='trigger' data-step='0'>Step 1 in the graphic. It triggers in the middle of the viewport. For this graphic, it is the same as the initial state so the reader doesn&rsquo;t miss anything.</p>
@@ -60,7 +60,7 @@
 				</div>
 				<div class='graphic__vis'></div>
 			</div>
-			<p class='back-to-blog'><a href='../../#waypoints'>&larr; Back to the blog</a></p>
+			<p class='back-to-blog'><a href='../../#rollyourown'>&larr; Back to the blog</a></p>
 		</div>
 
 		<a href='https://pudding.cool' class='logo spacer'>
@@ -74,10 +74,6 @@
 	<script src='../d3.v4.min.js'></script>
 	<script src='../graphic.js'></script>
 
-	<!-- The scroll library -->
-	<!-- http://imakewebthings.com/waypoints/ -->
-	<script src='noframework.waypoints.min.js'></script>
-	
 	
 	<script>
 		(function() {
@@ -92,7 +88,32 @@
 				return result
 			}
 
-			function waypoints() {
+			// throttle function
+			// https://remysharp.com/2010/07/21/throttling-function-calls
+			function throttle(fn, threshhold, scope) {
+				threshhold || (threshhold = 250);
+				var last,
+				deferTimer;
+				return function () {
+					var context = scope || this;
+
+					var now = +new Date,
+					args = arguments;
+					if (last && now < last + threshhold) {
+						// hold on to it
+						clearTimeout(deferTimer);
+						deferTimer = setTimeout(function () {
+						last = now;
+						fn.apply(context, args);
+						}, threshhold);
+					} else {
+						last = now;
+						fn.apply(context, args);
+					}
+				};
+			}
+			
+			function rollyourown() {
 				var graphicEl = document.querySelector('.graphic')
 				var graphicVisEl = graphicEl.querySelector('.graphic__vis')
 				var triggerEls = selectionToArray(graphicEl.querySelectorAll('.trigger'))
@@ -101,8 +122,6 @@
 				// this can be whatever you want, but just know it does all the vis
 				var graphic = createGraphic('.graphic')
 
-				// small function for handling all the class changes
-				// of entering/exiting
 				var toggle = function(fixed, bottom) {
 					if (fixed) graphicVisEl.classList.add('is-fixed')
 					else graphicVisEl.classList.remove('is-fixed')
@@ -110,49 +129,71 @@
 					if (bottom) graphicVisEl.classList.add('is-bottom')
 					else graphicVisEl.classList.remove('is-bottom')
 				}
-				
-				// setup a waypoint trigger for each trigger element
-				var waypoints = triggerEls.map(function(el) {
+
+				var viewportHeight = window.innerHeight
+				var halfViewportHeight = viewportHeight / 2
+				var bbTop = 0	
+				var bbBottom = 0
+				var prevTop = -1
+				var dir = 1
+				var height = graphicEl.getBoundingClientRect().height
+				var prevStep = 0
+				var currentStep = 0
+				var numSteps = triggerEls.length
+
+				var checkTrigger = function() {
+					if (bbTop < viewportHeight && bbBottom > 0) {
+						var progress = Math.abs(bbTop - halfViewportHeight) / height * numSteps
+						var step = dir === 1 ? Math.ceil(progress) : Math.floor(progress)
+						currentStep = Math.min(Math.max(step, 0), numSteps - 1) 
+					}
+				}
+
+				var checkEnterExit = function() {
+					var bottomFromTop = bbBottom - viewportHeight
+					var bottom = false
+					var fixed = false
+
+					if (bbTop < 0 && bottomFromTop > 0) {
+						bottom = false
+						fixed = true
+					} else if (bbTop < 0 && bottomFromTop < 0) {
+						bottom = true
+						fixed = false
+					}
 					
-					// get the step, cast as number					
-					var step = +el.getAttribute('data-step')
+					toggle(fixed, bottom)
+				}
 
-					return new Waypoint({
-						element: el, // our trigger element
-						handler: function(direction) {
-							// if the direction is down then we use that number,
-							// else, we want to trigger the previous one
-							var nextStep = direction === 'down' ? step : Math.max(0, step - 1)
-							
-							// tell our graphic to update with a specific step
-							graphic.update(nextStep)
-						},
-						offset: '50%',  // trigger halfway up the viewport
-					})
-				})
+				var handleScroll = function() {
+					var bb = graphicEl.getBoundingClientRect()
+					bbTop = bb.top
+					bbBottom = bb.bottom
+					
+					var diff = bbTop - prevTop
+					if (diff < 0) dir = -1
+					else if (diff > 0) dir = 1
+					prevTop = bbTop
 
-				// enter (top) / exit (bottom) graphic (toggle fixed position)
-				var enterWaypoint = new Waypoint({
-					element: graphicEl,
-					handler: function(direction) {
-						var fixed = direction === 'down'
-						var bottom = false
-						toggle(fixed, bottom)
-					},
-				})
+					checkTrigger()
+					checkEnterExit()
+				}
 
-				var exitWaypoint = new Waypoint({
-					element: graphicEl,
-					handler: function(direction) {
-						var fixed = direction === 'up'
-						var bottom = !fixed
-						toggle(fixed, bottom)
-					},
-					offset: 'bottom-in-view', // waypoints convenience instead of a calculation
-				})
+				// throttled scroll event
+				window.addEventListener('scroll', throttle(handleScroll, 100))
+
+				var render = function() {
+					if (currentStep !== prevStep) {
+						prevStep = currentStep
+						graphic.update(currentStep)
+					}
+					
+					window.requestAnimationFrame(render)
+				}
+				render()
 			}
 
-			waypoints()
+			rollyourown()
 
 		})()
 	</script>
