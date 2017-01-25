@@ -135,6 +135,66 @@ function waypoints() {
 			</div>
 		</div>
 		
+		<div class='library library__scrollstory'>
+			<div class='library__text'>
+				<h2 class='library__hed'>#5 - <a target='_blank' href='https://github.com/sjwilliams/scrollstory'>ScrollStory</a></h2>
+				<p class='library__review'>
+					ScrollStory is created by and for the New York Times. It has a super clear API and supports tons of options. The two big drawbacks I found were that it depends on jQuery (which is not a problem if you use by default) and it requires some additional code to get the fixed graphic part working properly.
+				</p>
+				<p class='library__demo'><a href='demo/scrollstory'>Demo &rarr;</a></p>
+			</div>
+			<div class='library__code'>
+				<pre><code class='language-js'>
+function scrollstory() {
+	var $graphicEl = $('.graphic')
+	var $graphicVisEl = $graphicEl.find('.graphic__vis')
+
+	var graphic = createGraphic('.graphic')
+
+	var toggle = function(fixed, bottom) {
+		if (fixed) $graphicVisEl.addClass('is-fixed')
+		else $graphicVisEl.removeClass('is-fixed')
+
+		if (bottom) $graphicVisEl.addClass('is-bottom')
+		else $graphicVisEl.removeClass('is-bottom')
+	}
+
+	var viewportHeight = window.innerHeight
+	var halfViewportHeight = Math.floor(viewportHeight / 2)
+
+	var handleItemFocus = function(event, item) {
+		var step = item.data.step
+		graphic.update(step)
+	}	
+
+	var handleContainerScroll = function(event) {
+		var bottom = false
+		var fixed = false
+
+		var bb = $graphicEl[0].getBoundingClientRect()
+		var bottomFromTop = bb.bottom - viewportHeight
+		
+		if (bb.top < 0 && bottomFromTop > 0) {
+			bottom = false
+			fixed = true
+		} else if (bb.top < 0 && bottomFromTop < 0) {
+			bottom = true
+			fixed = false
+		}
+		toggle(fixed, bottom)
+	}
+
+	$graphicEl.scrollStory({
+		contentSelector: '.trigger',
+		triggerOffset: halfViewportHeight,
+		itemfocus: handleItemFocus,
+		containerscroll: handleContainerScroll,
+	})
+}
+				</code></pre>
+			</div>
+		</div>
+		
 		<div class='library library__scrollmagic'>
 			<div class='library__text'>
 				<h2 class='library__hed'>#2 - <a target='_blank' href='http://scrollmagic.io/'>ScrollMagic</a></h2>
@@ -324,66 +384,6 @@ function inview() {
 			var bottom = false
 			toggle(fixed, bottom)
 		})
-}
-				</code></pre>
-			</div>
-		</div>
-
-		<div class='library library__scrollstory'>
-			<div class='library__text'>
-				<h2 class='library__hed'>#5 - <a target='_blank' href='https://github.com/sjwilliams/scrollstory'>ScrollStory</a></h2>
-				<p class='library__review'>
-					ScrollStory is created by and for the New York Times. It has a super clear API and supports tons of options. The two big drawbacks I found were that it depends on jQuery (which is not a problem if you use by default) and it requires some additional code to get the fixed graphic part working properly.
-				</p>
-				<p class='library__demo'><a href='demo/scrollstory'>Demo &rarr;</a></p>
-			</div>
-			<div class='library__code'>
-				<pre><code class='language-js'>
-function scrollstory() {
-	var $graphicEl = $('.graphic')
-	var $graphicVisEl = $graphicEl.find('.graphic__vis')
-
-	var graphic = createGraphic('.graphic')
-
-	var toggle = function(fixed, bottom) {
-		if (fixed) $graphicVisEl.addClass('is-fixed')
-		else $graphicVisEl.removeClass('is-fixed')
-
-		if (bottom) $graphicVisEl.addClass('is-bottom')
-		else $graphicVisEl.removeClass('is-bottom')
-	}
-
-	var viewportHeight = window.innerHeight
-	var halfViewportHeight = Math.floor(viewportHeight / 2)
-
-	var handleItemFocus = function(event, item) {
-		var step = item.data.step
-		graphic.update(step)
-	}	
-
-	var handleContainerScroll = function(event) {
-		var bottom = false
-		var fixed = false
-
-		var bb = $graphicEl[0].getBoundingClientRect()
-		var bottomFromTop = bb.bottom - viewportHeight
-		
-		if (bb.top < 0 && bottomFromTop > 0) {
-			bottom = false
-			fixed = true
-		} else if (bb.top < 0 && bottomFromTop < 0) {
-			bottom = true
-			fixed = false
-		}
-		toggle(fixed, bottom)
-	}
-
-	$graphicEl.scrollStory({
-		contentSelector: '.trigger',
-		triggerOffset: halfViewportHeight,
-		itemfocus: handleItemFocus,
-		containerscroll: handleContainerScroll,
-	})
 }
 				</code></pre>
 			</div>
