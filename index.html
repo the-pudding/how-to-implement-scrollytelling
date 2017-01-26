@@ -1,39 +1,33 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>Scrollytelling - The Pudding</title>
-
-	<!-- <meta property="hide-footer-social", content="true"> -->
-	<!-- <meta property="hide-footer-recirc", content="true">
-	<meta property="hide-footer-newsletter", content="true">
-	<meta property="hide-footer-company", content="true"> -->
-
+	<title>How to implement scrollytelling with six different libraries</title>
 
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="description" content="">
-	<meta name="news_keywords" content="">
+	<meta name="description" content="How to implement scrollytelling with six different libraries">
+	<meta name="news_keywords" content="scrollytelling, scroll-driven, graphics, d3, scrollmagic, waypoints, graph-scoll, scrollstory, in-view">
 
 
-	<meta property="og:title" content="">
+	<meta property="og:title" content="How to implement scrollytelling with six different libraries">
 	<meta property="og:site_name" content="The Pudding">
-	<meta property="og:url" content="">
-	<meta property="og:description" content="">
+	<meta property="og:url" content="https://polygraph-cool.github.io/how-to-implement-scrollytelling">
+	<meta property="og:description" content="In this post, I look at how to tackle a simple scroll-driven chart using six different libraries, and share my thoughts on each implementation.">
 	<meta property="og:type" content="article">
 	<meta property="og:locale" content="en_US">
 
-	<meta property="og:image" content="">
-	<meta property="og:image:type" content="image/jpeg">
-	<meta property="og:image:width" content="1200">
-	<meta property="og:image:height" content="600">
+	<meta property="og:image" content="https://polygraph-cool.github.io/assets/scrollytelling.gif">
+	<meta property="og:image:type" content="image/gif">
+	<meta property="og:image:width" content="640">
+	<meta property="og:image:height" content="472">
 
 	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:site" content="https://pudding.cool">
-	<meta name="twitter:creator" content="@pudding">
-	<meta name="twitter:title" content="">
-	<meta name="twitter:description" content="">
-	<meta name="twitter:image:src" content="">
+	<meta name="twitter:site" content="https://polygraph-cool.github.io/assets/scrollytelling.gif">
+	<meta name="twitter:creator" content="@puddingvis">
+	<meta name="twitter:title" content="How to implement scrollytelling with six different libraries">
+	<meta name="twitter:description" content="In this post, I look at how to tackle a simple scroll-driven chart using six different libraries, and share my thoughts on each implementation.">
+	<meta name="twitter:image:src" content="https://polygraph-cool.github.io/assets/scrollytelling.gif">
 	  
 	<link rel="stylesheet" type="text/css" href="https://cloud.typography.com/7124072/6351572/css/fonts.css" />
 
@@ -55,7 +49,7 @@
 			<h1 class='hed'>How to implement scrollytelling with six different libraries</h1>
 			<p class='byline'>
 				<span class='byline__author'><a target='_blank' href='https://twitter.com/codenberg'>Russell Goldenberg</a></span>
-				<span class='byline__date'>January 25, 2017</span>
+				<span class='byline__date'>January 2017</span>
 			<p>
 				<strong>Scrollytelling is the best</strong> (or the worst depending on your <a target='_blank' href='https://eagereyes.org/blog/2016/the-scrollytelling-scourge'>point of view</a>). We love it here at <a target='_blank' href='https://pudding.cool'>The Pudding</a>. But creating a scroll-driven story is hardly a standardize practice, and there are many libraries out there that can help make it happen.
 			</p>
@@ -65,7 +59,7 @@
 				<strong>In this post, I look at how to tackle a simple scroll-driven chart using six different libraries</strong>, and share my thoughts on each implementation. It is inspired by Lisa Charlotte Rost&rsquo;s <a target='_blank' href='https://lisacharlotterost.github.io/2016/05/17/one-chart-code/'>great post</a> comparing charting libraries. 
 			</p>
 			<p>
-				I'm not going to get into the different types of scrollytelling, or debate the serious ethical and moral implications of the practice. I defer to <a target='_blank' href='https://medium.com/@zanarmstrong/why-choose-scrollytelling-steppers-155a59dd97fe'>these</a> <a target='_blank' href='http://vallandingham.me/scroll_talk/examples/'>posts</a> for scrollytelling primers.
+				I'm not going to get into the different types of scrollytelling, or debate the serious moral and ethical implications of the practice. I defer to <a target='_blank' href='https://medium.com/@zanarmstrong/why-choose-scrollytelling-steppers-155a59dd97fe'>these</a> <a target='_blank' href='http://vallandingham.me/scroll_talk/examples/'>posts</a> for scrollytelling primers.
 			</p>
 			<p>
 				<video class='video-demo' src='assets/demo.mp4' preload autoplay loop></video>
@@ -93,9 +87,12 @@
 			<div class='library__code'>
 				<pre><code class='language-js'>
 function waypoints() {
-	var graphicEl = containerEl.querySelector('.graphic')
-	var graphicVisEl = containerEl.querySelector('.graphic__vis')
-	var triggerEls = selectionToArray(containerEl.querySelectorAll('.trigger'))
+	var graphicEl = document.querySelector('.graphic')
+	var graphicVisEl = graphicEl.querySelector('.graphic__vis')
+	var triggerEls = selectionToArray(graphicEl.querySelectorAll('.trigger'))
+
+	var viewportHeight = window.innerHeight
+	var halfViewportHeight = Math.floor(viewportHeight / 2)
 
 	var graphic = createGraphic('.graphic')
 
@@ -107,7 +104,6 @@ function waypoints() {
 		else graphicVisEl.classList.remove('is-bottom')
 	}
 	
-
 	var waypoints = triggerEls.map(function(el) {
 		var step = +el.getAttribute('data-step')
 
@@ -159,6 +155,9 @@ function scrollstory() {
 	var $graphicEl = $('.graphic')
 	var $graphicVisEl = $graphicEl.find('.graphic__vis')
 
+	var viewportHeight = window.innerHeight
+	var halfViewportHeight = Math.floor(viewportHeight / 2)
+
 	var graphic = createGraphic('.graphic')
 
 	var toggle = function(fixed, bottom) {
@@ -168,9 +167,6 @@ function scrollstory() {
 		if (bottom) $graphicVisEl.addClass('is-bottom')
 		else $graphicVisEl.removeClass('is-bottom')
 	}
-
-	var viewportHeight = window.innerHeight
-	var halfViewportHeight = Math.floor(viewportHeight / 2)
 
 	var handleItemFocus = function(event, item) {
 		var step = item.data.step
@@ -183,7 +179,7 @@ function scrollstory() {
 
 		var bb = $graphicEl[0].getBoundingClientRect()
 		var bottomFromTop = bb.bottom - viewportHeight
-		
+
 		if (bb.top < 0 && bottomFromTop > 0) {
 			bottom = false
 			fixed = true
@@ -191,6 +187,7 @@ function scrollstory() {
 			bottom = true
 			fixed = false
 		}
+
 		toggle(fixed, bottom)
 	}
 
@@ -221,6 +218,9 @@ function scrollmagic() {
 	var graphicVisEl = graphicEl.querySelector('.graphic__vis')
 	var triggerEls = selectionToArray(graphicEl.querySelectorAll('.trigger'))
 
+	var viewportHeight = window.innerHeight
+	var halfViewportHeight = Math.floor(viewportHeight / 2)
+
 	var graphic = createGraphic('.graphic')
 
 	var toggle = function(fixed, bottom) {
@@ -231,7 +231,6 @@ function scrollmagic() {
 		else graphicVisEl.classList.remove('is-bottom')
 	}
 
-	var viewportHeight = window.innerHeight
 	var controller = new ScrollMagic.Controller()
 	
 	var scenes = triggerEls.map(function(el) {
@@ -254,13 +253,13 @@ function scrollmagic() {
 		scene.addTo(controller)
 	})
 
-	var enterScene = new ScrollMagic.Scene({
+	var enterExitScene = new ScrollMagic.Scene({
 		triggerElement: graphicEl,
 		triggerHook: '0',
 		duration: graphicEl.offsetHeight - viewportHeight,
 	})
 
-	enterScene
+	enterExitScene
 		.on('enter', function(event) {
 			var fixed = true
 			var bottom = false
@@ -272,7 +271,7 @@ function scrollmagic() {
 			toggle(fixed, bottom)
 		})
 
-	enterScene.addTo(controller)
+	enterExitScene.addTo(controller)
 }
 				</code></pre>
 			</div>
@@ -294,16 +293,16 @@ function graphscroll() {
 	var graphicVisEl = graphicEl.select('.graphic__vis')
 	var triggerEls = graphicEl.selectAll('.trigger')
 
-	var graphic = createGraphic('.graphic')
-
 	var viewportHeight = window.innerHeight
-	var halfviewportHeight = viewportHeight / 2
+	var halfViewportHeight = viewportHeight / 2
+
+	var graphic = createGraphic('.graphic')
 
 	d3.graphScroll()
 		.container(graphicEl)
 		.graph(graphicVisEl)
 		.sections(triggerEls)
-		.offset(halfviewportHeight)
+		.offset(halfViewportHeight)
 		.on('active', function(i) {
 			graphic.update(i)
 		})
@@ -328,6 +327,9 @@ function inview() {
 	var graphicVisEl = graphicEl.querySelector('.graphic__vis')
 	var triggerEls = selectionToArray(graphicEl.querySelectorAll('.trigger'))
 
+	var viewportHeight = window.innerHeight
+	var halfViewportHeight = Math.floor(viewportHeight / 2)
+
 	var graphic = createGraphic('.graphic')
 
 	var toggle = function(fixed, bottom) {
@@ -337,9 +339,6 @@ function inview() {
 		if (bottom) graphicVisEl.classList.add('is-bottom')
 		else graphicVisEl.classList.remove('is-bottom')
 	}
-
-	var viewportHeight = window.innerHeight
-	var halfViewportHeight = Math.floor(viewportHeight / 2)
 	
 	var inviewTrigger = inView()
 
@@ -350,7 +349,7 @@ function inview() {
 		left: 0,
 	})
 
-	inviewTrigger('.graphic .trigger')
+	inviewTrigger('.trigger')
 		.on('enter', function(el) {
 			var step = +el.getAttribute('data-step')
 			graphic.update(step)
@@ -378,7 +377,7 @@ function inview() {
 		})
 
 	var inviewBottom = inView()
-	
+
 	inviewBottom.offset({
 		top: -999999,
 		right: 0,
@@ -419,6 +418,9 @@ function rollyourown() {
 	var graphicVisEl = graphicEl.querySelector('.graphic__vis')
 	var triggerEls = selectionToArray(graphicEl.querySelectorAll('.trigger'))
 
+	var viewportHeight = window.innerHeight
+	var halfViewportHeight = Math.floor(viewportHeight / 2)
+
 	var graphic = createGraphic('.graphic')
 
 	var toggle = function(fixed, bottom) {
@@ -429,11 +431,9 @@ function rollyourown() {
 		else graphicVisEl.classList.remove('is-bottom')
 	}
 
-	var viewportHeight = window.innerHeight
-	var halfViewportHeight = viewportHeight / 2
-	var bbTop = 0
-	var bbBottom = 0
+	var bbTop = 0	
 	var prevTop = -1
+	var bbBottom = 0
 	var dir = 1
 	var height = graphicEl.getBoundingClientRect().height
 	var prevStep = 0
@@ -450,14 +450,17 @@ function rollyourown() {
 
 	var checkEnterExit = function() {
 		var bottomFromTop = bbBottom - viewportHeight
-		var bottom = false
-		var fixed = false
+		var bottom
+		var fixed
 
 		if (bbTop < 0 && bottomFromTop > 0) {
 			bottom = false
 			fixed = true
 		} else if (bbTop < 0 && bottomFromTop < 0) {
 			bottom = true
+			fixed = false
+		} else {
+			bottom = false
 			fixed = false
 		}
 		
@@ -472,13 +475,14 @@ function rollyourown() {
 		var diff = bbTop - prevTop
 		if (diff < 0) dir = -1
 		else if (diff > 0) dir = 1
+		
 		prevTop = bbTop
 
 		checkTrigger()
 		checkEnterExit()
 	}
 
-	window.addEventListener('scroll', throttle(handleScroll, 100))
+	window.addEventListener('scroll', throttle(handleScroll, 50))
 
 	var render = function() {
 		if (currentStep !== prevStep) {
@@ -540,9 +544,5 @@ function rollyourown() {
 			})
 		})()
 	</script>
-	<script id="__bs_script__">//<![CDATA[
-	    document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.17.5'><\/script>".replace("HOST", location.hostname));
-	//]]></script>
-
 </body>
 </html>
