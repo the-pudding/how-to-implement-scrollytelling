@@ -142,11 +142,12 @@ function waypoints() {
 }
 				</code></pre>
 			</div>
+			<button class='code__button'>Expand to see full code</button>
 		</div>
 		
 		<div class='library library__scrollstory'>
 			<div class='library__text'>
-				<h2 class='library__hed'>#5 - <a target='_blank' href='https://github.com/sjwilliams/scrollstory'>ScrollStory</a></h2>
+				<h2 class='library__hed'>#2 - <a target='_blank' href='https://github.com/sjwilliams/scrollstory'>ScrollStory</a></h2>
 				<p class='library__review'>
 					ScrollStory is created by and for the New York Times. It has a super clear API and supports tons of options. The two big drawbacks I found were that it depends on jQuery (which is not a problem if you use by default) and it requires some additional code to get the fixed graphic part working properly.
 				</p>
@@ -202,11 +203,12 @@ function scrollstory() {
 }
 				</code></pre>
 			</div>
+			<button class='code__button'>Expand to see full code</button>
 		</div>
 		
 		<div class='library library__scrollmagic'>
 			<div class='library__text'>
-				<h2 class='library__hed'>#2 - <a target='_blank' href='http://scrollmagic.io/'>ScrollMagic</a></h2>
+				<h2 class='library__hed'>#3 - <a target='_blank' href='http://scrollmagic.io/'>ScrollMagic</a></h2>
 				<p class='library__review'>
 					ScrollMagic is based on Superscrollorama, a previously popular library. Like Waypoints, it is quite robust, well-documented, and totally customizable. It has a great add-on for debugging. It also has no dependencies which is nice.
 				</p>
@@ -274,11 +276,12 @@ function scrollmagic() {
 }
 				</code></pre>
 			</div>
+			<button class='code__button'>Expand to see full code</button>
 		</div>
 
 		<div class='library library__graphscroll'>
 			<div class='library__text'>
-				<h2 class='library__hed'>#3 - <a target='_blank' href='https://1wheel.github.io/graph-scroll/'>graph-scroll.js</a></h2>
+				<h2 class='library__hed'>#4 - <a target='_blank' href='https://1wheel.github.io/graph-scroll/'>graph-scroll.js</a></h2>
 				<p class='library__review'>
 					graph-scroll.js is a d3 plugin, so only consider it if you are familiar with and using d3. It is really lightweight, and was created by <a href='https://twitter.com/adamrpearce' target='_blank'>Adam Pearce</a> who knows a thing or two about scroll-driven graphics. It is very singularly focused though, so it will likely require you to customize the library a bit to get what you want.</p>
 				</p>
@@ -307,11 +310,12 @@ function graphscroll() {
 }
 				</code></pre>
 			</div>
+			<button class='code__button'>Expand to see full code</button>
 		</div>
 
 		<div class='library library__inview'>
 			<div class='library__text'>
-				<h2 class='library__hed'>#4 - <a target='_blank' href='https://camwiegert.github.io/in-view/'>in-view.js</a></h2>
+				<h2 class='library__hed'>#5 - <a target='_blank' href='https://camwiegert.github.io/in-view/'>in-view.js</a></h2>
 				<p class='library__review'>
 					in-view.js is a great library in general, and I tried to adapt it my scrollytelling needs. While one of its features is perfomance optimization, that comes with the downside of only having a single global offset for triggering an enter/exit. I had to use a <a target='_blank' href='https://github.com/gabrielflorit/in-view'>modified version</a> that allows for creating multiple instances to make it work for this scenario. Also, the offsets are a bit confusing to use in this context. In short, this library is amazingly simple to use for just triggering, but definitely not designed for customized scrollytelling.
 				</p>
@@ -396,6 +400,7 @@ function inview() {
 }
 				</code></pre>
 			</div>
+			<button class='code__button'>Expand to see full code</button>
 		</div>
 
 		<div class='library library__rollyourown'>
@@ -487,11 +492,17 @@ function rollyourown() {
 }
 				</code></pre>
 			</div>
+			<button class='code__button'>Expand to see full code</button>
 		</div>
 
 
 		<div class='outro'>
-			<p>The best library all depends on your use case. For highly customized stories, you will need either Waypoints, ScrollMagic, or roll your own. Simple d3 projects can take advantage of graph-scroll.js. Really basic stuff can be done with in-view.js. If you need jQuery, ScrollStory is not a bad place to start.</p>
+			<p>
+				The best library all depends on your use case. For highly customized stories, you will need either Waypoints, ScrollMagic, or roll your own. Simple d3 projects can take advantage of graph-scroll.js. Really basic stuff can be done with in-view.js. If you need jQuery, ScrollStory is not a bad place to start.
+			</p>
+			<p>
+				The full code is available on <a target='_blank' href='https://github.com/polygraph-cool/blog-scrollytelling'>github</a>. If there are any good libraries out there I missed, give me a shout <a target='_blank' href='https://twitter.com/codenberg'>@codenberg</a>.
+			</p>
 		</div>
 		<a href='https://pudding.cool' class='logo'>
 			<svg version="1.1" class="logo__svg" x="0" y="0" viewBox="0 0 165 153.8" enable-background="new 0 0 165 153.8" xml:space="preserve">
@@ -501,7 +512,34 @@ function rollyourown() {
 	</main>
 
 	<script src='js/prism.js'></script>
-	
+	<script>
+		(function() {
+			function selectionToArray(selection) {
+				var len = selection.length
+				var result = []
+				for (var i = 0; i < len; i++) {
+					result.push(selection[i])
+				}
+				return result
+			}
+
+			var buttonEl = selectionToArray(document.querySelectorAll('.code__button'))
+
+			buttonEl.forEach(function(el) {
+				el.addEventListener('click', function() {
+					var prevEl = this.previousElementSibling
+					var expanded = prevEl.classList.contains('is-expand')
+					if (expanded) {
+						prevEl.classList.remove('is-expand')
+						this.textContent = 'Expand to see full code'
+					} else {
+						prevEl.classList.add('is-expand')
+						this.textContent = 'Collapse'
+					}
+				})
+			})
+		})()
+	</script>
 	<script id="__bs_script__">//<![CDATA[
 	    document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.17.5'><\/script>".replace("HOST", location.hostname));
 	//]]></script>
