@@ -74,13 +74,14 @@ ol, ul {
 
 
 .video-demo {
-	max-width: 50%;
-	float: right;
-	display: inline-block;
-	margin-left: 1rem;
-	margin-bottom: 1rem;
-	height: 243px;
+	/*max-width: 50%;*/
+	/*float: right;*/
+	/*display: inline-block;*/
+	/*margin-left: 1rem;*/
+	/*margin-bottom: 1rem;*/
+	/*height: 243px;*/
 	border: 1px solid #eee;
+	margin: 1rem 0;
 }
 
 .outro {
