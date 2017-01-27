@@ -157,41 +157,17 @@ ol, ul {
 .code__button:hover {
 	background-color: #f33;
 }
-/*
-.library__waypoints {
-	background-color: rgba(179, 226, 205, 0.5);
-}
 
-.library__scrollmagic {
-	background-color: rgba(253, 205, 172, 0.5);
-}
-
-.library__graphscroll {
-	background-color: rgba(203, 213, 232, 0.5);
-}
-
-.library__inview {
-	background-color: rgba(244, 202, 228, 0.5);
-}
-
-.library__scrollstory {
-	background-color: rgba(230, 245, 201, 0.5);
-}
-
-.library__rollyourown {
-	background-color: rgba(255, 242, 174, 0.5);
-}*/
 
 .logo {
+	position: absolute;
+	top: 1rem;
+	left: 1rem;
 	margin: 0 auto;
 	max-width: 55px;
 	display: block;
 	text-align: center;
 	border: none;
-}
-
-.logo.spacer {
-	margin: 15vh auto;
 }
 
 .logo__svg {
