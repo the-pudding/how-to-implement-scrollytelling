@@ -51,12 +51,13 @@
 				<span class='byline__author'><a target='_blank' href='https://twitter.com/codenberg'>Russell Goldenberg</a></span>
 				<span class='byline__date'>January 2017</span>
 			<p>
-				<strong>Scrollytelling is the best</strong> (or the worst depending on your <a target='_blank' href='https://eagereyes.org/blog/2016/the-scrollytelling-scourge'>point of view</a>). We love it here at <a target='_blank' href='https://pudding.cool'>The Pudding</a>. But creating a scroll-driven story is hardly a standardize practice, and there are many libraries out there that can help make it happen.
+				<strong>Scrollytelling is the best</strong> (or the worst depending on your <a target='_blank' href='https://eagereyes.org/blog/2016/the-scrollytelling-scourge'>point of view</a>). We love it here at The Pudding. But creating a scroll-driven story is hardly a standardized practice, and there are many libraries out there that can help make it happen.
 			</p>
-			<p>So that we are on the same page, &ldquo;scrollytelling&rdquo; is when content (eg. a graphic) is revealed or changes as the user scrolls. It does not alter scroll behavior, but simply monitors it. As Martha Stewart would say, it's a good thing. Do not confuse this will scrolljacking, which manipulates the browser&rsquo;s scroll mecahnics with JavaScript, and is generally considered bad practice.
+			<p>
+				“Scrollytelling” is when content (e.g., a graphic) is revealed or changed as the user scrolls. It does not alter scroll behavior, but simply monitors it. As Martha Stewart would say, “It’s a good thing.” Do not confuse this will scrolljacking, which manipulates the browser’s scroll mechanics with JavaScript, which is generally considered bad practice.
 			</p> 
 			<p>
-				<strong>In this post, I look at how to tackle a simple scroll-driven chart using six different libraries</strong>, and share my thoughts on each implementation. It is inspired by Lisa Charlotte Rost&rsquo;s <a target='_blank' href='https://lisacharlotterost.github.io/2016/05/17/one-chart-code/'>great post</a> comparing charting libraries. 
+				<strong>In this post, I look at how to tackle a simple scroll-driven chart using six different libraries</strong> and share my thoughts on each implementation. It is inspired by Lisa Charlotte Rost’s <a target='_blank' href='https://lisacharlotterost.github.io/2016/05/17/one-chart-code/'>great post</a> comparing charting libraries.
 			</p>
 			<p>
 				I'm not going to get into the different types of scrollytelling, or debate the serious moral and ethical implications of the practice. I defer to <a target='_blank' href='https://medium.com/@zanarmstrong/why-choose-scrollytelling-steppers-155a59dd97fe'>these</a> <a target='_blank' href='http://vallandingham.me/scroll_talk/examples/'>posts</a> for scrollytelling primers.
@@ -66,11 +67,11 @@
 			<p>
 				We have two goals here:<br>
 				1. Use the "scroll-to-trigger" pattern where the trigger element (in our case a block of text) tells the chart to update to a new state. <br>
-				2. We want the chart to stay fixed while the text moves, and have it snap back into place as it enters and exits, because often the scrollytelling portion is not the entire story.
+				2. We want the chart to stay fixed while the text moves and have it snap back into place as it enters and exits, because often the scrollytelling portion is not the entire story.
 			</p>
 			
 			<p class='disclaimer'>
-				Disclaimer: <em>this post does not cover responsive solutions (though you should do it, and most libraries make it pretty painless), so if you had the audacity to resize your browser, refresh the page. I'm not going to cover mobile either, which will probably become its own post soon enough...</em>
+				Disclaimer: <em>this post does not cover responsive solutions (though you should do it, and most libraries make it pretty painless). If you have the audacity to resize your browser, refresh the page. I'm not going to cover mobile either, which will probably become its own post soon enough...</em>
 			</p>
 		</div>
 
@@ -147,7 +148,7 @@ function waypoints() {
 			<div class='library__text'>
 				<h2 class='library__hed'>#2 - <a target='_blank' href='https://github.com/sjwilliams/scrollstory'>ScrollStory</a></h2>
 				<p class='library__review'>
-					ScrollStory is a jQuery-based library used for some projects at The New York Times. It has a super clear API and supports tons of options. The two big drawbacks I found were that it depends on jQuery (which is not a problem if you use by default) and it requires some additional code to get the fixed graphic part working properly. If those two things are not important to you, I recommend exploring this one since it is setup to handle a variety of use cases.
+					ScrollStory is a jQuery-based library used for some projects at The New York Times. It has a super clear API and supports tons of options. The two big drawbacks that I found were that it depends on jQuery (which is not a problem if you use it by default) and it requires some additional code to get the fixed graphic part working properly. If those two things are not important to you, I recommend exploring this one since it is setup to handle a variety of use cases.
 				</p>
 				<p class='library__demo'><a href='demo/scrollstory'>Demo &rarr;</a></p>
 			</div>
@@ -209,7 +210,7 @@ function scrollstory() {
 			<div class='library__text'>
 				<h2 class='library__hed'>#3 - <a target='_blank' href='http://scrollmagic.io/'>ScrollMagic</a></h2>
 				<p class='library__review'>
-					ScrollMagic is based on Superscrollorama, a previously popular library. Like Waypoints, it is quite robust, well-documented, and totally customizable. It has a great add-on for debugging. It also has no dependencies which is nice.
+					ScrollMagic is based on Superscrollorama, a previously popular library. Like Waypoints, it is quite robust, well-documented, and totally customizable. It has a great add-on for debugging. It also has no dependencies, which is nice.
 				</p>
 				<p class='library__demo'><a href='demo/scrollmagic'>Demo &rarr;</a></p>
 			</div>
@@ -284,7 +285,7 @@ function scrollmagic() {
 			<div class='library__text'>
 				<h2 class='library__hed'>#4 - <a target='_blank' href='https://1wheel.github.io/graph-scroll/'>graph-scroll.js</a></h2>
 				<p class='library__review'>
-					graph-scroll.js is a d3 plugin, so only consider it if you are familiar with and using d3. It is really lightweight, and was created by <a href='https://twitter.com/adamrpearce' target='_blank'>Adam Pearce</a> who knows a thing or two about scroll-driven graphics. It is very singularly focused though, so it will likely require you to customize the library a bit to get what you want. That being said, it is only the library that specifically implements the fixed position toggle, which is great.</p>
+					graph-scroll.js is a d3 plugin, so only consider it if you are familiar with and using d3. It is really lightweight, and it was created by <a href='https://twitter.com/adamrpearce' target='_blank'>Adam Pearce</a> who knows a thing or two about scroll-driven graphics. It is very singularly focused though, so it will likely require you to customize the library a bit to get what you want. That being said, it is only the library that specifically implements the transition to and from a fixed position graphic, which is great.
 				</p>
 				<p class='library__demo'><a href='demo/graphscroll'>Demo &rarr;</a></p>
 			</div>
@@ -318,7 +319,7 @@ function graphscroll() {
 			<div class='library__text'>
 				<h2 class='library__hed'>#5 - <a target='_blank' href='https://camwiegert.github.io/in-view/'>in-view.js</a></h2>
 				<p class='library__review'>
-					in-view.js is a great library in general, and I tried to adapt it my scrollytelling needs. While one of its features is perfomance optimization, that comes with the downside of only having a single global offset for triggering an enter/exit. I had to use a <a target='_blank' href='https://github.com/gabrielflorit/in-view'>modified version</a> that allows for creating multiple instances to make it work for this scenario. Also, the offsets are a bit confusing to use in this context. In short, this library is amazingly simple to use for just triggering, but definitely not designed for customized scrollytelling.
+					in-view.js is a great library in general, and I tried to adapt it to my scrollytelling needs. While one of its features is performance optimization, that comes with the downside of only having a single global offset for triggering an enter/exit. I had to use a <a target='_blank' href='https://github.com/gabrielflorit/in-view'>modified version</a> that allows for creating multiple instances to make it work for this scenario. Also, the offsets are a bit confusing to use in this context. In short, this library is amazingly simple to use for just triggering, but definitely not designed for customized scrollytelling.
 				</p>
 				<p class='library__demo'><a href='demo/inview'>Demo &rarr;</a></p>
 			</div>
