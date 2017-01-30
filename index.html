@@ -449,9 +449,7 @@ function rollyourown() {
 	}
 
 	var bbTop = 0	
-	var prevTop = -1
 	var bbBottom = 0
-	var dir = 1
 	var height = graphicEl.getBoundingClientRect().height
 	var prevStep = 0
 	var currentStep = 0
@@ -460,8 +458,8 @@ function rollyourown() {
 	var checkTrigger = function() {
 		if (bbTop < viewportHeight && bbBottom > 0) {
 			var progress = Math.abs(bbTop - halfViewportHeight) / height * numSteps
-			var step = dir === 1 ? Math.ceil(progress) : Math.floor(progress)
-			currentStep = Math.min(Math.max(step, 0), numSteps - 1) 
+			var step = Math.floor(progress)
+			currentStep = Math.min(Math.max(step, 0), numSteps - 1)
 		}
 	}
 
@@ -489,12 +487,6 @@ function rollyourown() {
 		bbTop = bb.top
 		bbBottom = bb.bottom
 		
-		var diff = bbTop - prevTop
-		if (diff < 0) dir = -1
-		else if (diff > 0) dir = 1
-		
-		prevTop = bbTop
-
 		checkTrigger()
 		checkEnterExit()
 	}
