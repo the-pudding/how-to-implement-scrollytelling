@@ -31,6 +31,8 @@
 	<meta name="twitter:image:src" content="https://polygraph-cool.github.io/assets/scrollytelling.gif">
 	  
 	<link rel="stylesheet" type="text/css" href="https://cloud.typography.com/7124072/6351572/css/fonts.css" />
+<!-- 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700" rel="stylesheet"> -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700" rel="stylesheet">
 
 	<link rel='stylesheet' href='css/style.css' />
 	<link rel='stylesheet' href='css/prism.css' />
@@ -60,8 +62,14 @@
 				<strong>Scrollytelling is the best</strong> (or the worst depending on your <a target='_blank' href='https://eagereyes.org/blog/2016/the-scrollytelling-scourge'>point of view</a>). We love it here at The Pudding. But creating a scroll-driven story is hardly a standardized practice, and there are many libraries out there that can help make it happen.
 			</p>
 			<p>
-				“Scrollytelling” is when content (e.g., a graphic) is revealed or changed as the user scrolls. It does not alter scroll behavior, but simply monitors it. As Martha Stewart would say, “It’s a good thing.” Do not confuse this will scrolljacking, which manipulates the browser’s scroll mechanics with JavaScript, which is generally considered bad practice.
-			</p> 
+				“Scrollytelling” is when content (e.g., a graphic) is revealed or changed as the user scrolls. It does not alter scroll behavior, but simply monitors it. As Martha Stewart would say, “It’s a good thing.” Do not confuse this will scrolljacking, which manipulates the browser’s scroll mechanics with JavaScript, which is generally considered bad practice. Here are a few examples of this in action:
+			</p>
+			<div class='video-example'>
+				<a class='example-link' target='_blank' href='https://www.nytimes.com/interactive/2016/07/07/world/americas/bolivia-climate-change-lake-poopo.html'><video src='assets/nyt1_480.mp4' preload autoplay loop></video></a>
+				<a class='example-link' target='_blank' href='https://www.nytimes.com/interactive/2016/11/08/us/elections/how-trump-pushed-the-election-map-to-the-right.html?em_pos=small&emc=edit_up_20161109&nl=upshot&nl_art=1&nlid=72362133&ref=img&te=1'><video src='assets/nyt2_480.mp4' preload autoplay loop></video></a>
+				<a class='example-link' target='_blank' href='https://www.theguardian.com/us-news/ng-interactive/2015/oct/19/homan-square-chicago-police-detainees'><video src='assets/guardian_480.mp4' preload autoplay loop></video></a>
+				<a class='example-link' target='_blank' href='http://polygraph.cool/redraft/'><video src='assets/polygraph_480.mp4' preload autoplay loop></video></a>
+			</div>
 			<p>
 				<strong>In this post, I look at how to tackle a simple scroll-driven chart using six different libraries</strong> and share my thoughts on each implementation. It is inspired by Lisa Charlotte Rost’s <a target='_blank' href='https://lisacharlotterost.github.io/2016/05/17/one-chart-code/'>great post</a> comparing charting libraries.
 			</p>
@@ -71,7 +79,7 @@
 			<p>We want to make something like this:</p>
 			<video class='video-demo' src='assets/demo.mp4' preload autoplay loop></video>
 			<p>
-				We have two goals here:<br>
+				There are two goals here:<br>
 				1. Use the "scroll-to-trigger" pattern where the trigger element (in our case a block of text) tells the chart to update to a new state. <br>
 				2. We want the chart to stay fixed while the text moves and have it snap back into place as it enters and exits, because often the scrollytelling portion is not the entire story.
 			</p>
@@ -216,7 +224,7 @@ function scrollstory() {
 			<div class='library__text'>
 				<h2 class='library__hed'>#3 - <a target='_blank' href='http://scrollmagic.io/'>ScrollMagic</a></h2>
 				<p class='library__review'>
-					ScrollMagic is based on Superscrollorama, a previously popular library. Like Waypoints, it is quite robust, well-documented, and totally customizable. It has a great add-on for debugging. It also has no dependencies, which is nice.
+					ScrollMagic is based on Superscrollorama, a previously popular library. Like Waypoints, it is quite robust, well-documented, and totally customizable. It has a great add-on for debugging. It also has no dependencies, which is nice. I do sometimes notice that the scroll events get a bit janky and won’t fire immediately, which is a built-in function the library has to deal with the scroll events.
 				</p>
 				<p class='library__demo'><a href='demo/scrollmagic'>Demo &rarr;</a></p>
 			</div>
@@ -510,8 +518,15 @@ function rollyourown() {
 
 
 		<div class='outro'>
+			<p>So what to chose? The best library all depends on your use case, but here are some recommendations based on my findings:
 			<p>
-				The best library all depends on your use case. For highly customized stories, you will need either Waypoints, ScrollMagic, or roll your own. Simple d3 projects can take advantage of graph-scroll.js. Really basic stuff can be done with in-view.js. If you need jQuery, ScrollStory is not a bad place to start.
+				<strong>For highly customized stories</strong> you will want ScrollMagic or Waypoints.
+			</p>
+			<p>
+				<strong>For the beginner</strong> you might want to check out ScrollStory, especially if you lean on jQuery.
+			</p>
+			<p>
+				<strong>For the d3 lover</strong> you should explore graph-scroll.js, but be ready to accept the defaults or be ready to tinker.
 			</p>
 			<p>
 				The full code is available on <a target='_blank' href='https://github.com/polygraph-cool/how-to-implement-scrollytelling'>github</a>. If there are any good libraries out there I missed, give me a shout <a target='_blank' href='https://twitter.com/codenberg'>@codenberg</a>.
