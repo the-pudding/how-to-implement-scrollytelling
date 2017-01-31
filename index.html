@@ -101,56 +101,41 @@
 
 			<div class='library__code'>
 				<pre><code class='language-js'>
-function waypoints() {
-	var graphicEl = document.querySelector('.graphic')
-	var graphicVisEl = graphicEl.querySelector('.graphic__vis')
-	var triggerEls = selectionToArray(graphicEl.querySelectorAll('.trigger'))
+...
 
-	var viewportHeight = window.innerHeight
-	var halfViewportHeight = Math.floor(viewportHeight / 2)
+var waypoints = triggerEls.map(function(el) {
+	var step = +el.getAttribute('data-step')
 
-	var graphic = createGraphic('.graphic')
-
-	var toggle = function(fixed, bottom) {
-		if (fixed) graphicVisEl.classList.add('is-fixed')
-		else graphicVisEl.classList.remove('is-fixed')
-
-		if (bottom) graphicVisEl.classList.add('is-bottom')
-		else graphicVisEl.classList.remove('is-bottom')
-	}
-	
-	var waypoints = triggerEls.map(function(el) {
-		var step = +el.getAttribute('data-step')
-
-		return new Waypoint({
-			element: el,
-			handler: function(direction) {
-				var nextStep = direction === 'down' ? step : Math.max(0, step - 1)
-				graphic.update(nextStep)
-			},
-			offset: '50%',
-		})
-	})
-
-	var enterWaypoint = new Waypoint({
-		element: graphicEl,
+	return new Waypoint({
+		element: el,
 		handler: function(direction) {
-			var fixed = direction === 'down'
-			var bottom = false
-			toggle(fixed, bottom)
+			var nextStep = direction === 'down' ? step : Math.max(0, step - 1)
+			graphic.update(nextStep)
 		},
+		offset: '50%',
 	})
+})
 
-	var exitWaypoint = new Waypoint({
-		element: graphicEl,
-		handler: function(direction) {
-			var fixed = direction === 'up'
-			var bottom = !fixed
-			toggle(fixed, bottom)
-		},
-		offset: 'bottom-in-view',
-	})
-}
+var enterWaypoint = new Waypoint({
+	element: graphicEl,
+	handler: function(direction) {
+		var fixed = direction === 'down'
+		var bottom = false
+		toggle(fixed, bottom)
+	},
+})
+
+var exitWaypoint = new Waypoint({
+	element: graphicEl,
+	handler: function(direction) {
+		var fixed = direction === 'up'
+		var bottom = !fixed
+		toggle(fixed, bottom)
+	},
+	offset: 'bottom-in-view',
+})
+
+...
 				</code></pre>
 			</div>
 			<button class='code__button'>Expand to see full code</button>
@@ -166,53 +151,39 @@ function waypoints() {
 			</div>
 			<div class='library__code'>
 				<pre><code class='language-js'>
-function scrollstory() {
-	var $graphicEl = $('.graphic')
-	var $graphicVisEl = $graphicEl.find('.graphic__vis')
+...
 
-	var viewportHeight = window.innerHeight
-	var halfViewportHeight = Math.floor(viewportHeight / 2)
+var handleItemFocus = function(event, item) {
+	var step = item.data.step
+	graphic.update(step)
+}	
 
-	var graphic = createGraphic('.graphic')
+var handleContainerScroll = function(event) {
+	var bottom = false
+	var fixed = false
 
-	var toggle = function(fixed, bottom) {
-		if (fixed) $graphicVisEl.addClass('is-fixed')
-		else $graphicVisEl.removeClass('is-fixed')
+	var bb = $graphicEl[0].getBoundingClientRect()
+	var bottomFromTop = bb.bottom - viewportHeight
 
-		if (bottom) $graphicVisEl.addClass('is-bottom')
-		else $graphicVisEl.removeClass('is-bottom')
+	if (bb.top < 0 && bottomFromTop > 0) {
+		bottom = false
+		fixed = true
+	} else if (bb.top < 0 && bottomFromTop < 0) {
+		bottom = true
+		fixed = false
 	}
 
-	var handleItemFocus = function(event, item) {
-		var step = item.data.step
-		graphic.update(step)
-	}	
-
-	var handleContainerScroll = function(event) {
-		var bottom = false
-		var fixed = false
-
-		var bb = $graphicEl[0].getBoundingClientRect()
-		var bottomFromTop = bb.bottom - viewportHeight
-
-		if (bb.top < 0 && bottomFromTop > 0) {
-			bottom = false
-			fixed = true
-		} else if (bb.top < 0 && bottomFromTop < 0) {
-			bottom = true
-			fixed = false
-		}
-
-		toggle(fixed, bottom)
-	}
-
-	$graphicEl.scrollStory({
-		contentSelector: '.trigger',
-		triggerOffset: halfViewportHeight,
-		itemfocus: handleItemFocus,
-		containerscroll: handleContainerScroll,
-	})
+	toggle(fixed, bottom)
 }
+
+$graphicEl.scrollStory({
+	contentSelector: '.trigger',
+	triggerOffset: halfViewportHeight,
+	itemfocus: handleItemFocus,
+	containerscroll: handleContainerScroll,
+})
+
+...
 				</code></pre>
 			</div>
 			<button class='code__button'>Expand to see full code</button>
@@ -228,66 +199,51 @@ function scrollstory() {
 			</div>
 			<div class='library__code'>
 				<pre><code class='language-js'>
-function scrollmagic() {
-	var graphicEl = document.querySelector('.graphic')
-	var graphicVisEl = graphicEl.querySelector('.graphic__vis')
-	var triggerEls = selectionToArray(graphicEl.querySelectorAll('.trigger'))
+...
 
-	var viewportHeight = window.innerHeight
-	var halfViewportHeight = Math.floor(viewportHeight / 2)
+var controller = new ScrollMagic.Controller()
 
-	var graphic = createGraphic('.graphic')
+var scenes = triggerEls.map(function(el) {
+	var step = +el.getAttribute('data-step')
 
-	var toggle = function(fixed, bottom) {
-		if (fixed) graphicVisEl.classList.add('is-fixed')
-		else graphicVisEl.classList.remove('is-fixed')
-
-		if (bottom) graphicVisEl.classList.add('is-bottom')
-		else graphicVisEl.classList.remove('is-bottom')
-	}
-
-	var controller = new ScrollMagic.Controller()
-	
-	var scenes = triggerEls.map(function(el) {
-		var step = +el.getAttribute('data-step')
-
-		var scene = new ScrollMagic.Scene({
-			triggerElement: el,
-			triggerHook: 'onCenter',
-		})
-
-		scene
-			.on('enter', function(event) {
-				graphic.update(step)
-			})
-			.on('leave', function(event) {
-				var nextStep = Math.max(0, step - 1)
-				graphic.update(nextStep)
-			})
-		
-		scene.addTo(controller)
+	var scene = new ScrollMagic.Scene({
+		triggerElement: el,
+		triggerHook: 'onCenter',
 	})
 
-	var enterExitScene = new ScrollMagic.Scene({
-		triggerElement: graphicEl,
-		triggerHook: '0',
-		duration: graphicEl.offsetHeight - viewportHeight,
-	})
-
-	enterExitScene
+	scene
 		.on('enter', function(event) {
-			var fixed = true
-			var bottom = false
-			toggle(fixed, bottom)
+			graphic.update(step)
 		})
 		.on('leave', function(event) {
-			var fixed = false
-			var bottom = event.scrollDirection === 'FORWARD'
-			toggle(fixed, bottom)
+			var nextStep = Math.max(0, step - 1)
+			graphic.update(nextStep)
 		})
+	
+	scene.addTo(controller)
+})
 
-	enterExitScene.addTo(controller)
-}
+var enterExitScene = new ScrollMagic.Scene({
+	triggerElement: graphicEl,
+	triggerHook: '0',
+	duration: graphicEl.offsetHeight - viewportHeight,
+})
+
+enterExitScene
+	.on('enter', function(event) {
+		var fixed = true
+		var bottom = false
+		toggle(fixed, bottom)
+	})
+	.on('leave', function(event) {
+		var fixed = false
+		var bottom = event.scrollDirection === 'FORWARD'
+		toggle(fixed, bottom)
+	})
+
+enterExitScene.addTo(controller)
+
+...
 				</code></pre>
 			</div>
 			<button class='code__button'>Expand to see full code</button>
@@ -303,25 +259,18 @@ function scrollmagic() {
 			</div>
 			<div class='library__code'>
 				<pre><code class='language-js'>
-function graphscroll() {
-	var graphicEl = d3.select('.graphic')
-	var graphicVisEl = graphicEl.select('.graphic__vis')
-	var triggerEls = graphicEl.selectAll('.trigger')
+...
 
-	var viewportHeight = window.innerHeight
-	var halfViewportHeight = viewportHeight / 2
+d3.graphScroll()
+	.container(graphicEl)
+	.graph(graphicVisEl)
+	.sections(triggerEls)
+	.offset(halfViewportHeight)
+	.on('active', function(i) {
+		graphic.update(i)
+	})
 
-	var graphic = createGraphic('.graphic')
-
-	d3.graphScroll()
-		.container(graphicEl)
-		.graph(graphicVisEl)
-		.sections(triggerEls)
-		.offset(halfViewportHeight)
-		.on('active', function(i) {
-			graphic.update(i)
-		})
-}
+...
 				</code></pre>
 			</div>
 			<button class='code__button'>Expand to see full code</button>
@@ -337,81 +286,66 @@ function graphscroll() {
 			</div>
 			<div class='library__code'>
 				<pre><code class='language-js'>
-function inview() {
-	var graphicEl = document.querySelector('.graphic')
-	var graphicVisEl = graphicEl.querySelector('.graphic__vis')
-	var triggerEls = selectionToArray(graphicEl.querySelectorAll('.trigger'))
+...
 
-	var viewportHeight = window.innerHeight
-	var halfViewportHeight = Math.floor(viewportHeight / 2)
+var inviewTrigger = inView()
 
-	var graphic = createGraphic('.graphic')
+inviewTrigger.offset({
+	top: 0,
+	right: 0,
+	bottom: halfViewportHeight,
+	left: 0,
+})
 
-	var toggle = function(fixed, bottom) {
-		if (fixed) graphicVisEl.classList.add('is-fixed')
-		else graphicVisEl.classList.remove('is-fixed')
-
-		if (bottom) graphicVisEl.classList.add('is-bottom')
-		else graphicVisEl.classList.remove('is-bottom')
-	}
-	
-	var inviewTrigger = inView()
-
-	inviewTrigger.offset({
-		top: 0,
-		right: 0,
-		bottom: halfViewportHeight,
-		left: 0,
+inviewTrigger('.trigger')
+	.on('enter', function(el) {
+		var step = +el.getAttribute('data-step')
+		graphic.update(step)
 	})
 
-	inviewTrigger('.trigger')
-		.on('enter', function(el) {
-			var step = +el.getAttribute('data-step')
-			graphic.update(step)
-		})
+var inviewTop = inView()
 
-	var inviewTop = inView()
-	
-	inviewTop.offset({
-		top: -999999,
-		right: 0,
-		bottom: window.innerHeight,
-		left: 0,
+inviewTop.offset({
+	top: -999999,
+	right: 0,
+	bottom: window.innerHeight,
+	left: 0,
+})
+
+inviewTop('.graphic')
+	.on('enter', function(el) {
+		var fixed = true
+		var bottom = false
+		toggle(fixed, bottom)
+	})
+	.on('exit', function(el) {
+		var fixed = false
+		var bottom = false
+		toggle(fixed, bottom)
 	})
 
-	inviewTop('.graphic')
-		.on('enter', function(el) {
-			var fixed = true
-			var bottom = false
-			toggle(fixed, bottom)
-		})
-		.on('exit', function(el) {
-			var fixed = false
-			var bottom = false
-			toggle(fixed, bottom)
-		})
+var inviewBottom = inView()
 
-	var inviewBottom = inView()
+inviewBottom.offset({
+	top: -999999,
+	right: 0,
+	bottom: graphicEl.offsetHeight,
+	left: 0,
+})
 
-	inviewBottom.offset({
-		top: -999999,
-		right: 0,
-		bottom: graphicEl.offsetHeight,
-		left: 0,
+inviewBottom('.graphic')
+	.on('enter', function(el) {
+		var fixed = false
+		var bottom = true
+		toggle(fixed, bottom)
+	})
+	.on('exit', function(el) {
+		var fixed = true
+		var bottom = false
+		toggle(fixed, bottom)
 	})
 
-	inviewBottom('.graphic')
-		.on('enter', function(el) {
-			var fixed = false
-			var bottom = true
-			toggle(fixed, bottom)
-		})
-		.on('exit', function(el) {
-			var fixed = true
-			var bottom = false
-			toggle(fixed, bottom)
-		})
-}
+...
 				</code></pre>
 			</div>
 			<button class='code__button'>Expand to see full code</button>
@@ -428,79 +362,64 @@ function inview() {
 			</div>
 			<div class='library__code'>
 				<pre><code class='language-js'>
-function rollyourown() {
-	var graphicEl = document.querySelector('.graphic')
-	var graphicVisEl = graphicEl.querySelector('.graphic__vis')
-	var triggerEls = selectionToArray(graphicEl.querySelectorAll('.trigger'))
+...
 
-	var viewportHeight = window.innerHeight
-	var halfViewportHeight = Math.floor(viewportHeight / 2)
+var bbTop = 0	
+var bbBottom = 0
+var height = graphicEl.getBoundingClientRect().height
+var prevStep = 0
+var currentStep = 0
+var numSteps = triggerEls.length
 
-	var graphic = createGraphic('.graphic')
-
-	var toggle = function(fixed, bottom) {
-		if (fixed) graphicVisEl.classList.add('is-fixed')
-		else graphicVisEl.classList.remove('is-fixed')
-
-		if (bottom) graphicVisEl.classList.add('is-bottom')
-		else graphicVisEl.classList.remove('is-bottom')
+var checkTrigger = function() {
+	if (bbTop < viewportHeight && bbBottom > 0) {
+		var progress = Math.abs(bbTop - halfViewportHeight) / height * numSteps
+		var step = Math.floor(progress)
+		currentStep = Math.min(Math.max(step, 0), numSteps - 1)
 	}
-
-	var bbTop = 0	
-	var bbBottom = 0
-	var height = graphicEl.getBoundingClientRect().height
-	var prevStep = 0
-	var currentStep = 0
-	var numSteps = triggerEls.length
-
-	var checkTrigger = function() {
-		if (bbTop < viewportHeight && bbBottom > 0) {
-			var progress = Math.abs(bbTop - halfViewportHeight) / height * numSteps
-			var step = Math.floor(progress)
-			currentStep = Math.min(Math.max(step, 0), numSteps - 1)
-		}
-	}
-
-	var checkEnterExit = function() {
-		var bottomFromTop = bbBottom - viewportHeight
-		var bottom
-		var fixed
-
-		if (bbTop < 0 && bottomFromTop > 0) {
-			bottom = false
-			fixed = true
-		} else if (bbTop < 0 && bottomFromTop < 0) {
-			bottom = true
-			fixed = false
-		} else {
-			bottom = false
-			fixed = false
-		}
-		
-		toggle(fixed, bottom)
-	}
-
-	var handleScroll = function() {
-		var bb = graphicEl.getBoundingClientRect()
-		bbTop = bb.top
-		bbBottom = bb.bottom
-		
-		checkTrigger()
-		checkEnterExit()
-	}
-
-	window.addEventListener('scroll', throttle(handleScroll, 50))
-
-	var render = function() {
-		if (currentStep !== prevStep) {
-			prevStep = currentStep
-			graphic.update(currentStep)
-		}
-		
-		window.requestAnimationFrame(render)
-	}
-	render()
 }
+
+var checkEnterExit = function() {
+	var bottomFromTop = bbBottom - viewportHeight
+	var bottom
+	var fixed
+
+	if (bbTop < 0 && bottomFromTop > 0) {
+		bottom = false
+		fixed = true
+	} else if (bbTop < 0 && bottomFromTop < 0) {
+		bottom = true
+		fixed = false
+	} else {
+		bottom = false
+		fixed = false
+	}
+	
+	toggle(fixed, bottom)
+}
+
+var handleScroll = function() {
+	var bb = graphicEl.getBoundingClientRect()
+	bbTop = bb.top
+	bbBottom = bb.bottom
+	
+	checkTrigger()
+	checkEnterExit()
+}
+
+window.addEventListener('scroll', throttle(handleScroll, 50))
+
+var render = function() {
+	if (currentStep !== prevStep) {
+		prevStep = currentStep
+		graphic.update(currentStep)
+	}
+	
+	window.requestAnimationFrame(render)
+}
+render()
+
+...
 				</code></pre>
 			</div>
 			<button class='code__button'>Expand to see full code</button>
