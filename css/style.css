@@ -8,12 +8,12 @@ body {
 	color: #1a1a1a;
 	line-height: 1.8;
 	font-family: 'Whitney SSm A', 'Whitney SSm B', Helvetica, sans-serif;
-
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing:grayscale;
 }
 
 main {
+	padding: 0.75rem;
 	padding-bottom: 5rem;
 }
 
@@ -37,7 +37,7 @@ ol, ul {
 
 .intro {
 	max-width: 60rem;
-	margin: 2rem auto;
+	margin: 4rem auto 2rem auto;
 }
 
 .intro p {
