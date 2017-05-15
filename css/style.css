@@ -35,6 +35,22 @@ ol, ul {
 	list-style-type: none;
 }
 
+header {
+  z-index: 1000;
+  margin: 1rem auto;
+  max-width: 12rem;
+  padding: 1rem;
+}
+header a.logo {
+  display: block;
+  border: none;
+}
+header a.logo svg {
+  fill: #2a2a2a;
+  display: block;
+  width: 100%;
+}
+
 .intro {
 	max-width: 60rem;
 	margin: 4rem auto 2rem auto;
@@ -205,23 +221,6 @@ ol, ul {
 
 .code__button:hover {
 	background-color: #f33;
-}
-
-
-.logo {
-	position: absolute;
-	top: 1rem;
-	left: 1rem;
-	margin: 0 auto;
-	max-width: 55px;
-	display: block;
-	text-align: center;
-	border: none;
-}
-
-.logo__svg {
-	width: 55px;
-	height: 55px;
 }
 
 .back-to-blog {
