@@ -1,9 +1,10 @@
 <!doctype html>
 <html lang="en">
+
 <head>
 	<title>How to implement scrollytelling with six different libraries</title>
 
-	<meta property="hide-footer-recirc", content="true">
+	<meta property="hide-footer-recirc" , content="true">
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -29,28 +30,33 @@
 	<meta name="twitter:title" content="How to implement scrollytelling with six different libraries">
 	<meta name="twitter:description" content="In this post, I look at how to tackle a simple scroll-driven chart using six different libraries, and share my thoughts on each implementation.">
 	<meta name="twitter:image:src" content="https://pudding.cool/process/how-to-implement-scrollytelling/assets/scrollytelling.jpg">
-	  
+
 	<link rel="stylesheet" type="text/css" href="https://cloud.typography.com/7124072/6351572/css/fonts.css" />
 
 	<link rel='stylesheet' href='css/style.css' />
 	<link rel='stylesheet' href='css/prism.css' />
 	<script>
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date(); a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
 		ga('create', 'UA-90567923-1', 'auto');
 		ga('send', 'pageview');
 	</script>
 </head>
+
 <body>
 	<header>
 		<a href="https://pudding.cool" target="_blank" class="logo">
-			<svg xmlns="http://www.w3.org/2000/svg" width="296.82" height="47.3" viewBox="19.357 11.26 296.819 47.303" aria-labelledby="logo__title" role="img">
-	<title id="logo__title">The Pudding</title>
- 	<path d="M47.76 56.8c-2.5-.2-15.5-.2-18 0v-.44l2.05-.3c1.8-.25 2.5-1.35 2.5-9.35V15.1h-1.9c-3.6 0-5.5 1.75-9.7 9.4l-2.8 5.25h-.5c.3-3.2 1-13.24 1.1-16.6l.1-.04c1.8.2 9.3.5 11.1.5h17.5c2.3 0 11.1-1.4 13.2-2.1l.1.1v15.8h.27l1-1.1c2.9-3.3 5.3-4.4 8-4.4 4.44 0 7.04 2.4 7.04 7.5v11.5c0 7.7.76 8.9 2.66 9.2l1.1.2v.5c-2.38-.2-12.4-.2-14.78 0v-.45l.5-.1c1.55-.44 2.25-1.34 2.25-9.24V30.1c0-2.5-.9-3.4-3.06-3.4-.8 0-1.73.2-3.13.66l-1.8.55v12.9c0 7.9.6 8.8 2.2 9.3l.56.2v.5c-2.38-.2-12.4-.2-14.78 0v-.4l1.06-.2c1.97-.34 2.7-1.54 2.7-9.2V21c-2.43-4.6-5.13-5.75-8.63-5.75h-2.1v31.6c0 8 .6 9.07 2.4 9.37l1.87.3v.46zm3.25-.64h55.7v.65H51v-.6zm45-5.1c-8.5 0-12.3-4.55-12.3-13.8v-1.7C83.7 26.7 88 21.8 97 21.8c7.66 0 11.1 3.26 11.1 12.36v1.8H92.97v3.2c0 7.1 1.9 9 6 9 2.45 0 5-1.25 7.4-2.9l2-1.35.1 1.4-1.6 1.5c-2.95 2.7-6.75 4.4-10.85 4.4zm-3-16.6h7.4v-2.7c0-6.75-1-7.95-3.7-7.95-2.6 0-3.7 1.2-3.7 9.3v1.4zm35.2 22.35c-2.5-.2-15.7-.2-18.2 0v-.4l1.9-.3c1.8-.3 2.4-1.3 2.4-9.3V23.5c0-8.04-.6-9.14-2.4-9.4l-1.8-.24v-.45c1.37.1 7.8.2 9 .2 1.47 0 8.07-.1 9.3-.1 10.37 0 14.97 5.1 14.97 12.8v1.5c0 7.8-4.55 12.8-14.9 12.8h-2.2V39c.55.04 1.1.04 1.5.04 3.8 0 5.35-2.9 5.35-10.44v-3.3c0-7.54-1.54-10.44-5.44-10.44-.4 0-2.6 0-4.04.05v31.8c0 8 .7 9.1 2.5 9.4l2.3.3v.5zm3.3-.6h150.8v.7H131.5v-.6zm22.6-5c-4.4 0-7-2.4-7-7.5V33.2c0-7-.4-8.56-1.8-9l-.6-.2v-.4c1.8-.2 8.4-1.1 10.7-1.66v20.9c0 2.5.9 3.4 3.1 3.4.75 0 1.7-.24 3.1-.64l1.85-.5V33.2c0-6.9-.8-8.2-2.7-8.86l-1.1-.34v-.4c2.1-.2 9.7-1.1 12-1.66v17.9c0 6.86.75 8.2 2.65 8.8l1.1.36v.45c-2.17.16-9.27 1.06-11.58 1.66l-.3-5.4h-.25l-1 1.1c-2.92 3.3-5.32 4.4-8.1 4.4zm32 0c-5.4 0-9-4.4-9-13.6v-2.2c0-9.5 4.3-13.6 11.1-13.6 2.4 0 4.25.5 6.15 2.2l.8.7h.24v-2.6c0-6.5-.76-7.7-2.66-8.3l-1.1-.3v-.4c2.14-.2 9.44-1.1 11.74-1.6v28.2c0 7 .8 8.5 2.7 9.1l1.05.37v.45c-2.1.16-8.95 1.06-11.25 1.66l-.35-5.4h-.27l-1 1.1c-2.95 3.25-5.4 4.4-8.1 4.4zm7.7-5.6l1.6-.5V33.9c0-6.96-1.35-8.8-4.6-8.8-3.3 0-4.65 2.6-4.65 9.54v3.7c0 6.2 1.44 7.9 4.5 7.9.84 0 1.84-.2 3.2-.64zm24.1 5.6c-5.45 0-9-4.4-9-13.6v-2.2c0-9.5 4.2-13.6 11-13.6 2.45 0 4.2.6 6.15 2.2l.84.7h.24v-2.6c0-6.5-.8-7.6-2.7-8.3l-1.06-.3v-.4c2.1-.2 9.45-1.1 11.75-1.6v28.2c0 7 .75 8.5 2.65 9.1l1.1.37v.45c-2.15.16-9 1.06-11.3 1.66l-.35-5.4h-.27l-1 1.1c-2.95 3.25-5.35 4.4-8.1 4.4zm7.65-5.6l1.6-.5V33.9c0-6.96-1.36-8.8-4.66-8.8-3.26 0-4.6 2.6-4.6 9.54v3.7c0 6.2 1.4 7.9 4.44 7.9.84 0 1.84-.2 3.2-.64zm28.1 5.1c-2.16-.2-11.56-.2-13.76 0v-.4l.54-.1c1.6-.4 2.2-1.3 2.2-9.2v-7.7c0-6.9-.76-8.25-2.66-8.85l-1.1-.34v-.4c2.15-.2 9.7-1.1 12-1.64v18.9c0 7.9.7 8.8 2.25 9.28l.5.14v.47zm-12.1-35.3c0-2.6 1.6-4.1 5.1-4.1 3.54 0 5.1 1.5 5.1 4.1 0 2.6-1.56 4.1-5.1 4.1-3.5 0-5.1-1.5-5.1-4.1zm45.14 35.3c-2.36-.2-12.4-.2-14.76 0v-.4l.5-.1c1.54-.4 2.24-1.3 2.24-9.2V30.1c0-2.5-.9-3.4-3.05-3.4-.8 0-1.75.2-3.15.66l-1.8.55v12.9c0 7.9.6 8.8 2.2 9.3l.55.2v.5c-2.37-.2-12.4-.2-14.77 0v-.4l1.05-.2c1.94-.34 2.7-1.54 2.7-9.2v-7.7c0-6.9-.8-8.2-2.7-8.85l-1.1-.34v-.4c2.1-.2 9.2-1.1 11.5-1.64l.35 5.4h.24l1-1.1c2.96-3.23 5.4-4.4 8.1-4.4 4.46 0 7.06 2.37 7.06 7.47v11.5c0 7.7.74 8.9 2.64 9.2l1.1.2v.5zm15.65 7.9h-4.68c-10.46 0-12.3-1.3-12.3-3.4V55c0-1.85 2.53-4.35 7.3-4.35h.24V54c0 1.8 1 2.6 4.74 2.6h4.66c5.03 0 6.83-1.3 6.83-3.2V53c0-1.8-.82-3.2-3.5-3.2h-13.3c-2.72 0-4.2-1.3-4.2-3.7v-.16c0-1.94 1.2-3.54 4.78-5.4l3-1.54v-.5c-5.64-1-8.2-3.46-8.2-7.86v-.24c0-5.55 4.16-8.55 13.1-8.55 2.46 0 4.46.26 6.46.8l.16-.34c1.7-3.4 3.95-5 8-5h.9v5.4h-5.6c-.5 0-1.9.1-2.25.2l-.38.1v.5c3.8 1.1 5.73 3.6 5.73 7.1v.25c0 5.56-4.12 8.56-13.02 8.56-1.35 0-2.55-.1-3.75-.25l-.9 1.1c-.85 1-1.05 1.5-1.05 1.8 0 .36.2.5.6.5h11.63c5.83 0 8.9 2.96 8.9 7.4v.36c0 5.26-5.9 8.5-13.97 8.5zm2.52-27.7v-.7c0-4.7-.86-6.3-4.06-6.3-3.26 0-4.1 1.6-4.1 6.3v.8c0 4.7.9 6.3 4.1 6.3 3.2 0 4.04-1.6 4.04-6.3z"/>
-</svg>
+			<svg xmlns="http://www.w3.org/2000/svg" width="296.82" height="47.3" viewBox="19.357 11.26 296.819 47.303" aria-labelledby="logo__title"
+			 role="img">
+				<title id="logo__title">The Pudding</title>
+				<path d="M47.76 56.8c-2.5-.2-15.5-.2-18 0v-.44l2.05-.3c1.8-.25 2.5-1.35 2.5-9.35V15.1h-1.9c-3.6 0-5.5 1.75-9.7 9.4l-2.8 5.25h-.5c.3-3.2 1-13.24 1.1-16.6l.1-.04c1.8.2 9.3.5 11.1.5h17.5c2.3 0 11.1-1.4 13.2-2.1l.1.1v15.8h.27l1-1.1c2.9-3.3 5.3-4.4 8-4.4 4.44 0 7.04 2.4 7.04 7.5v11.5c0 7.7.76 8.9 2.66 9.2l1.1.2v.5c-2.38-.2-12.4-.2-14.78 0v-.45l.5-.1c1.55-.44 2.25-1.34 2.25-9.24V30.1c0-2.5-.9-3.4-3.06-3.4-.8 0-1.73.2-3.13.66l-1.8.55v12.9c0 7.9.6 8.8 2.2 9.3l.56.2v.5c-2.38-.2-12.4-.2-14.78 0v-.4l1.06-.2c1.97-.34 2.7-1.54 2.7-9.2V21c-2.43-4.6-5.13-5.75-8.63-5.75h-2.1v31.6c0 8 .6 9.07 2.4 9.37l1.87.3v.46zm3.25-.64h55.7v.65H51v-.6zm45-5.1c-8.5 0-12.3-4.55-12.3-13.8v-1.7C83.7 26.7 88 21.8 97 21.8c7.66 0 11.1 3.26 11.1 12.36v1.8H92.97v3.2c0 7.1 1.9 9 6 9 2.45 0 5-1.25 7.4-2.9l2-1.35.1 1.4-1.6 1.5c-2.95 2.7-6.75 4.4-10.85 4.4zm-3-16.6h7.4v-2.7c0-6.75-1-7.95-3.7-7.95-2.6 0-3.7 1.2-3.7 9.3v1.4zm35.2 22.35c-2.5-.2-15.7-.2-18.2 0v-.4l1.9-.3c1.8-.3 2.4-1.3 2.4-9.3V23.5c0-8.04-.6-9.14-2.4-9.4l-1.8-.24v-.45c1.37.1 7.8.2 9 .2 1.47 0 8.07-.1 9.3-.1 10.37 0 14.97 5.1 14.97 12.8v1.5c0 7.8-4.55 12.8-14.9 12.8h-2.2V39c.55.04 1.1.04 1.5.04 3.8 0 5.35-2.9 5.35-10.44v-3.3c0-7.54-1.54-10.44-5.44-10.44-.4 0-2.6 0-4.04.05v31.8c0 8 .7 9.1 2.5 9.4l2.3.3v.5zm3.3-.6h150.8v.7H131.5v-.6zm22.6-5c-4.4 0-7-2.4-7-7.5V33.2c0-7-.4-8.56-1.8-9l-.6-.2v-.4c1.8-.2 8.4-1.1 10.7-1.66v20.9c0 2.5.9 3.4 3.1 3.4.75 0 1.7-.24 3.1-.64l1.85-.5V33.2c0-6.9-.8-8.2-2.7-8.86l-1.1-.34v-.4c2.1-.2 9.7-1.1 12-1.66v17.9c0 6.86.75 8.2 2.65 8.8l1.1.36v.45c-2.17.16-9.27 1.06-11.58 1.66l-.3-5.4h-.25l-1 1.1c-2.92 3.3-5.32 4.4-8.1 4.4zm32 0c-5.4 0-9-4.4-9-13.6v-2.2c0-9.5 4.3-13.6 11.1-13.6 2.4 0 4.25.5 6.15 2.2l.8.7h.24v-2.6c0-6.5-.76-7.7-2.66-8.3l-1.1-.3v-.4c2.14-.2 9.44-1.1 11.74-1.6v28.2c0 7 .8 8.5 2.7 9.1l1.05.37v.45c-2.1.16-8.95 1.06-11.25 1.66l-.35-5.4h-.27l-1 1.1c-2.95 3.25-5.4 4.4-8.1 4.4zm7.7-5.6l1.6-.5V33.9c0-6.96-1.35-8.8-4.6-8.8-3.3 0-4.65 2.6-4.65 9.54v3.7c0 6.2 1.44 7.9 4.5 7.9.84 0 1.84-.2 3.2-.64zm24.1 5.6c-5.45 0-9-4.4-9-13.6v-2.2c0-9.5 4.2-13.6 11-13.6 2.45 0 4.2.6 6.15 2.2l.84.7h.24v-2.6c0-6.5-.8-7.6-2.7-8.3l-1.06-.3v-.4c2.1-.2 9.45-1.1 11.75-1.6v28.2c0 7 .75 8.5 2.65 9.1l1.1.37v.45c-2.15.16-9 1.06-11.3 1.66l-.35-5.4h-.27l-1 1.1c-2.95 3.25-5.35 4.4-8.1 4.4zm7.65-5.6l1.6-.5V33.9c0-6.96-1.36-8.8-4.66-8.8-3.26 0-4.6 2.6-4.6 9.54v3.7c0 6.2 1.4 7.9 4.44 7.9.84 0 1.84-.2 3.2-.64zm28.1 5.1c-2.16-.2-11.56-.2-13.76 0v-.4l.54-.1c1.6-.4 2.2-1.3 2.2-9.2v-7.7c0-6.9-.76-8.25-2.66-8.85l-1.1-.34v-.4c2.15-.2 9.7-1.1 12-1.64v18.9c0 7.9.7 8.8 2.25 9.28l.5.14v.47zm-12.1-35.3c0-2.6 1.6-4.1 5.1-4.1 3.54 0 5.1 1.5 5.1 4.1 0 2.6-1.56 4.1-5.1 4.1-3.5 0-5.1-1.5-5.1-4.1zm45.14 35.3c-2.36-.2-12.4-.2-14.76 0v-.4l.5-.1c1.54-.4 2.24-1.3 2.24-9.2V30.1c0-2.5-.9-3.4-3.05-3.4-.8 0-1.75.2-3.15.66l-1.8.55v12.9c0 7.9.6 8.8 2.2 9.3l.55.2v.5c-2.37-.2-12.4-.2-14.77 0v-.4l1.05-.2c1.94-.34 2.7-1.54 2.7-9.2v-7.7c0-6.9-.8-8.2-2.7-8.85l-1.1-.34v-.4c2.1-.2 9.2-1.1 11.5-1.64l.35 5.4h.24l1-1.1c2.96-3.23 5.4-4.4 8.1-4.4 4.46 0 7.06 2.37 7.06 7.47v11.5c0 7.7.74 8.9 2.64 9.2l1.1.2v.5zm15.65 7.9h-4.68c-10.46 0-12.3-1.3-12.3-3.4V55c0-1.85 2.53-4.35 7.3-4.35h.24V54c0 1.8 1 2.6 4.74 2.6h4.66c5.03 0 6.83-1.3 6.83-3.2V53c0-1.8-.82-3.2-3.5-3.2h-13.3c-2.72 0-4.2-1.3-4.2-3.7v-.16c0-1.94 1.2-3.54 4.78-5.4l3-1.54v-.5c-5.64-1-8.2-3.46-8.2-7.86v-.24c0-5.55 4.16-8.55 13.1-8.55 2.46 0 4.46.26 6.46.8l.16-.34c1.7-3.4 3.95-5 8-5h.9v5.4h-5.6c-.5 0-1.9.1-2.25.2l-.38.1v.5c3.8 1.1 5.73 3.6 5.73 7.1v.25c0 5.56-4.12 8.56-13.02 8.56-1.35 0-2.55-.1-3.75-.25l-.9 1.1c-.85 1-1.05 1.5-1.05 1.8 0 .36.2.5.6.5h11.63c5.83 0 8.9 2.96 8.9 7.4v.36c0 5.26-5.9 8.5-13.97 8.5zm2.52-27.7v-.7c0-4.7-.86-6.3-4.06-6.3-3.26 0-4.1 1.6-4.1 6.3v.8c0 4.7.9 6.3 4.1 6.3 3.2 0 4.04-1.6 4.04-6.3z"
+				/>
+			</svg>
 
 		</a>
 	</header>
@@ -58,49 +64,91 @@
 		<div class='intro'>
 			<h1 class='hed'>How to implement scrollytelling with six different libraries</h1>
 			<p class='byline'>
-				<span class='byline__author'><a target='_blank' href='https://twitter.com/codenberg'>Russell Goldenberg</a></span>
+				<span class='byline__author'>
+					<a target='_blank' href='https://twitter.com/codenberg'>Russell Goldenberg</a>
+				</span>
 				<span class='byline__date'>January 2017</span>
-			<p>
-				<strong>Scrollytelling is the best</strong> (or the worst depending on your <a target='_blank' href='https://eagereyes.org/blog/2016/the-scrollytelling-scourge'>point of view</a>). We love it here at <a href='https://pudding.cool' target='_blank'>The Pudding</a>. But creating a scroll-driven story is hardly a standardized practice, and there are many libraries out there that can help make it happen. <em>Check out my <a href='https://pudding.cool/process/responsive-scrollytelling' target='_blank'>follow-up post</a>, where we look at mobile solutions.</em>
-			</p>
-			<p>
-				“Scrollytelling” is when content (e.g., a graphic) is revealed or changed as the user scrolls. It does not alter scroll behavior, but simply monitors it. As Martha Stewart would say, “It’s a good thing.” Do not confuse this will scrolljacking, which manipulates the browser’s scroll mechanics with JavaScript, which is generally considered bad practice. Here are a few examples of the good stuff in action:
-			</p>
-			<div class='video-example'>
-				<a class='example-link' target='_blank' href='https://www.nytimes.com/interactive/2016/07/07/world/americas/bolivia-climate-change-lake-poopo.html'><video src='assets/nyt1_480.mp4' preload autoplay loop></video></a>
-				<a class='example-link' target='_blank' href='https://www.nytimes.com/interactive/2016/11/08/us/elections/how-trump-pushed-the-election-map-to-the-right.html?em_pos=small&emc=edit_up_20161109&nl=upshot&nl_art=1&nlid=72362133&ref=img&te=1'><video src='assets/nyt2_480.mp4' preload autoplay loop></video></a>
-				<a class='example-link' target='_blank' href='https://www.theguardian.com/us-news/ng-interactive/2015/oct/19/homan-square-chicago-police-detainees'><video src='assets/guardian_480.mp4' preload autoplay loop></video></a>
-				<a class='example-link' target='_blank' href='http://polygraph.cool/redraft/'><video src='assets/polygraph_480.mp4' preload autoplay loop></video></a>
-			</div>
-			<p>
-				<strong>In this post, I look at how to tackle a simple scroll-driven chart using six different libraries</strong> and share my thoughts on each implementation. It is inspired by Lisa Charlotte Rost’s <a target='_blank' href='https://lisacharlotterost.github.io/2016/05/17/one-chart-code/'>great post</a> comparing charting libraries.
-			</p>
-			<p>
-				I'm not going to get into the different types of scrollytelling, or debate the serious moral and ethical implications of the practice. I defer to <a target='_blank' href='https://medium.com/@zanarmstrong/why-choose-scrollytelling-steppers-155a59dd97fe'>these</a> <a target='_blank' href='http://vallandingham.me/scroll_talk/examples/'>posts</a> for scrollytelling primers.
-			</p>
-			<p>We want to make something like this:</p>
-			<video class='video-demo' src='assets/demo.mp4' preload autoplay loop></video>
-			<p>
-				There are two goals here:<br>
-				1. Use the "scroll-to-trigger" pattern where the trigger element (in our case a block of text) tells the chart to update to a new state. <br>
-				2. We want the chart to stay fixed while the text moves and have it snap back into place as it enters and exits, because often the scrollytelling portion is not the entire story.
-			</p>
-			
-			<p class='disclaimer'>
-				Disclaimer: <em>this post does not cover responsive solutions (though you should do it, and most libraries make it pretty painless). If you have the audacity to resize your browser, refresh the page. For mobile and responsive solutions, check out my <a href='https://pudding.cool/process/responsive-scrollytelling' target='_blank'>follow-up post,</a></em>
-			</p>
+				<p>
+					<strong>Scrollytelling is the best</strong> (or the worst depending on your
+					<a target='_blank' href='https://eagereyes.org/blog/2016/the-scrollytelling-scourge'>point of view</a>). We love it here at
+					<a href='https://pudding.cool' target='_blank'>The Pudding</a>. But creating a scroll-driven story is hardly a standardized practice, and there are many libraries
+					out there that can help make it happen.
+					<em>Check out my
+						<a href='https://pudding.cool/process/responsive-scrollytelling' target='_blank'>follow-up post</a>, where we look at mobile solutions.</em>
+				</p>
+				<p>
+					“Scrollytelling” is when content (e.g., a graphic) is revealed or changed as the user scrolls. It does not alter scroll behavior,
+					but simply monitors it. As Martha Stewart would say, “It’s a good thing.” Do not confuse this will scrolljacking, which
+					manipulates the browser’s scroll mechanics with JavaScript, which is generally considered bad practice. Here are a few
+					examples of the good stuff in action:
+				</p>
+				<div class='video-example'>
+					<a class='example-link' target='_blank' href='https://www.nytimes.com/interactive/2016/07/07/world/americas/bolivia-climate-change-lake-poopo.html'>
+						<video src='assets/nyt1_480.mp4' preload autoplay loop></video>
+					</a>
+					<a class='example-link' target='_blank' href='https://www.nytimes.com/interactive/2016/11/08/us/elections/how-trump-pushed-the-election-map-to-the-right.html?em_pos=small&emc=edit_up_20161109&nl=upshot&nl_art=1&nlid=72362133&ref=img&te=1'>
+						<video src='assets/nyt2_480.mp4' preload autoplay loop></video>
+					</a>
+					<a class='example-link' target='_blank' href='https://www.theguardian.com/us-news/ng-interactive/2015/oct/19/homan-square-chicago-police-detainees'>
+						<video src='assets/guardian_480.mp4' preload autoplay loop></video>
+					</a>
+					<a class='example-link' target='_blank' href='http://polygraph.cool/redraft/'>
+						<video src='assets/polygraph_480.mp4' preload autoplay loop></video>
+					</a>
+				</div>
+				<p>
+					<strong>In this post, I look at how to tackle a simple scroll-driven chart using six different libraries</strong> and share
+					my thoughts on each implementation. It is inspired by Lisa Charlotte Rost’s
+					<a target='_blank' href='https://lisacharlotterost.github.io/2016/05/17/one-chart-code/'>great post</a> comparing charting libraries.
+				</p>
+				<p>
+					I'm not going to get into the different types of scrollytelling, or debate the serious moral and ethical implications of
+					the practice. I defer to
+					<a target='_blank' href='https://medium.com/@zanarmstrong/why-choose-scrollytelling-steppers-155a59dd97fe'>these</a>
+					<a target='_blank' href='http://vallandingham.me/scroll_talk/examples/'>posts</a> for scrollytelling primers.
+				</p>
+				<p>We want to make something like this:</p>
+				<video class='video-demo' src='assets/demo.mp4' preload autoplay loop></video>
+				<p>
+					There are two goals here:
+					<br> 1. Use the "scroll-to-trigger" pattern where the trigger element (in our case a block of text) tells the chart to update
+					to a new state.
+					<br> 2. We want the chart to stay fixed while the text moves and have it snap back into place as it enters and exits, because
+					often the scrollytelling portion is not the entire story.
+				</p>
+
+				<p class='disclaimer'>
+					Disclaimer:
+					<em>this post does not cover responsive solutions (though you should do it, and most libraries make it pretty painless).
+						If you have the audacity to resize your browser, refresh the page. For mobile and responsive solutions, check out my
+						<a href='https://pudding.cool/process/responsive-scrollytelling' target='_blank'>follow-up post,</a>
+					</em>
+				</p>
+				<p class='update'>
+					Update (November 2017): I created my own scrollytelling library,
+					<a href='https://github.com/russellgoldenberg/scrollama/' target='_blank'>scrollama.js</a>. The goal of this library is to provide a simple interface for creating scroll-driven interactives.
+					Scrollama is focused on perfomance by using IntersectionObserver in favor of scroll events.
+					<a href='https://github.com/russellgoldenberg/scrollama/' target='_blank'>Check it out</a>.
+				</p>
 		</div>
 
 
 		<div id='waypoints' class='library library__waypoints'>
 			<div class='library__text'>
-				<h2 class='library__hed'>#1 - <a target='_blank' href='http://imakewebthings.com/waypoints/'>Waypoints</a></h2>
+				<h2 class='library__hed'>#1 -
+					<a target='_blank' href='http://imakewebthings.com/waypoints/'>Waypoints</a>
+				</h2>
 
 				<p class='library__review'>
-					Waypoints is a very solid choice. It has been around for a while, and supports both vanilla JS and jQuery integration. It has an easy to understand API, and good documentation. It has a lot of add-ons, like a debugger extension to reduce some head-scratching, inview detection, and sticky elements. Below is the core code used to implement this library. See the demo for the full code with comments. 
+					Waypoints is a very solid choice. It has been around for a while, and supports both vanilla JS and jQuery integration. It
+					has an easy to understand API, and good documentation. It has a lot of add-ons, like a debugger extension to reduce
+					some head-scratching, inview detection, and sticky elements. Below is the core code used to implement this library.
+					See the demo for the full code with comments.
 				</p>
-				
-				<p class='library__demo'><a href='demo/waypoints'>Demo &rarr;</a></p>
+
+				<p class='library__demo'>
+					<a href='demo/waypoints'>Demo &rarr;</a>
+				</p>
 			</div>
 
 			<div class='library__code'>
@@ -144,14 +192,21 @@ var exitWaypoint = new Waypoint({
 			</div>
 			<button class='code__button'>Expand to see full code</button>
 		</div>
-		
+
 		<div id='scrollstory' class='library library__scrollstory'>
 			<div class='library__text'>
-				<h2 class='library__hed'>#2 - <a target='_blank' href='https://github.com/sjwilliams/scrollstory'>ScrollStory</a></h2>
+				<h2 class='library__hed'>#2 -
+					<a target='_blank' href='https://github.com/sjwilliams/scrollstory'>ScrollStory</a>
+				</h2>
 				<p class='library__review'>
-					ScrollStory is a jQuery-based library used for some projects at The New York Times. It has a super clear API and supports tons of options. The two big drawbacks that I found were that it depends on jQuery (which is not a problem if you use it by default) and it requires some additional code to get the fixed graphic part working properly. If those two things are not important to you, I recommend exploring this one since it is setup to handle a variety of use cases.
+					ScrollStory is a jQuery-based library used for some projects at The New York Times. It has a super clear API and supports
+					tons of options. The two big drawbacks that I found were that it depends on jQuery (which is not a problem if you use
+					it by default) and it requires some additional code to get the fixed graphic part working properly. If those two things
+					are not important to you, I recommend exploring this one since it is setup to handle a variety of use cases.
 				</p>
-				<p class='library__demo'><a href='demo/scrollstory'>Demo &rarr;</a></p>
+				<p class='library__demo'>
+					<a href='demo/scrollstory'>Demo &rarr;</a>
+				</p>
 			</div>
 			<div class='library__code'>
 				<pre><code class='language-js'>
@@ -192,14 +247,21 @@ $graphicEl.scrollStory({
 			</div>
 			<button class='code__button'>Expand to see full code</button>
 		</div>
-		
+
 		<div id='scrollmagic' class='library library__scrollmagic'>
 			<div class='library__text'>
-				<h2 class='library__hed'>#3 - <a target='_blank' href='http://scrollmagic.io/'>ScrollMagic</a></h2>
+				<h2 class='library__hed'>#3 -
+					<a target='_blank' href='http://scrollmagic.io/'>ScrollMagic</a>
+				</h2>
 				<p class='library__review'>
-					ScrollMagic is based on Superscrollorama, a previously popular library. Like Waypoints, it is quite robust, well-documented, and totally customizable. It has a great add-on for debugging. It also has no dependencies, which is nice. I do sometimes notice that the scroll events get a bit janky and won’t fire immediately, which is a built-in function the library has to deal with the scroll events.
+					ScrollMagic is based on Superscrollorama, a previously popular library. Like Waypoints, it is quite robust, well-documented,
+					and totally customizable. It has a great add-on for debugging. It also has no dependencies, which is nice. I do sometimes
+					notice that the scroll events get a bit janky and won’t fire immediately, which is a built-in function the library has
+					to deal with the scroll events.
 				</p>
-				<p class='library__demo'><a href='demo/scrollmagic'>Demo &rarr;</a></p>
+				<p class='library__demo'>
+					<a href='demo/scrollmagic'>Demo &rarr;</a>
+				</p>
 			</div>
 			<div class='library__code'>
 				<pre><code class='language-js'>
@@ -255,11 +317,19 @@ enterExitScene.addTo(controller)
 
 		<div id='graphscroll' class='library library__graphscroll'>
 			<div class='library__text'>
-				<h2 class='library__hed'>#4 - <a target='_blank' href='https://1wheel.github.io/graph-scroll/'>graph-scroll.js</a></h2>
+				<h2 class='library__hed'>#4 -
+					<a target='_blank' href='https://1wheel.github.io/graph-scroll/'>graph-scroll.js</a>
+				</h2>
 				<p class='library__review'>
-					graph-scroll.js is a d3 plugin, so only consider it if you are familiar with and using d3. It is really lightweight, and it was created by <a href='https://twitter.com/adamrpearce' target='_blank'>Adam Pearce</a> who knows a thing or two about scroll-driven graphics. It is very singularly focused though, so it will likely require you to customize the library a bit to get what you want. That being said, it is only the library that specifically implements the transition to and from a fixed position graphic, which is great.
+					graph-scroll.js is a d3 plugin, so only consider it if you are familiar with and using d3. It is really lightweight, and
+					it was created by
+					<a href='https://twitter.com/adamrpearce' target='_blank'>Adam Pearce</a> who knows a thing or two about scroll-driven graphics. It is very singularly focused though, so it will
+					likely require you to customize the library a bit to get what you want. That being said, it is only the library that
+					specifically implements the transition to and from a fixed position graphic, which is great.
 				</p>
-				<p class='library__demo'><a href='demo/graphscroll'>Demo &rarr;</a></p>
+				<p class='library__demo'>
+					<a href='demo/graphscroll'>Demo &rarr;</a>
+				</p>
 			</div>
 			<div class='library__code'>
 				<pre><code class='language-js'>
@@ -282,11 +352,20 @@ d3.graphScroll()
 
 		<div id='inview' class='library library__inview'>
 			<div class='library__text'>
-				<h2 class='library__hed'>#5 - <a target='_blank' href='https://camwiegert.github.io/in-view/'>in-view.js</a></h2>
+				<h2 class='library__hed'>#5 -
+					<a target='_blank' href='https://camwiegert.github.io/in-view/'>in-view.js</a>
+				</h2>
 				<p class='library__review'>
-					in-view.js is a great library in general, and I tried to adapt it to my scrollytelling needs. While one of its features is performance optimization, that comes with the downside of only having a single global offset for triggering an enter/exit. I had to use a <a target='_blank' href='https://github.com/gabrielflorit/in-view'>modified version</a> that allows for creating multiple instances to make it work for this scenario. Also, the offsets are a bit confusing to use in this context. In short, this library is amazingly simple to use for just triggering, but definitely not designed for customized scrollytelling.
+					in-view.js is a great library in general, and I tried to adapt it to my scrollytelling needs. While one of its features is
+					performance optimization, that comes with the downside of only having a single global offset for triggering an enter/exit.
+					I had to use a
+					<a target='_blank' href='https://github.com/gabrielflorit/in-view'>modified version</a> that allows for creating multiple instances to make it work for this scenario. Also, the offsets
+					are a bit confusing to use in this context. In short, this library is amazingly simple to use for just triggering, but
+					definitely not designed for customized scrollytelling.
 				</p>
-				<p class='library__demo'><a href='demo/inview'>Demo &rarr;</a></p>
+				<p class='library__demo'>
+					<a href='demo/inview'>Demo &rarr;</a>
+				</p>
 			</div>
 			<div class='library__code'>
 				<pre><code class='language-js'>
@@ -357,12 +436,18 @@ inviewBottom('.graphic')
 
 		<div id='rollyourown' class='library library__rollyourown'>
 			<div class='library__text'>
-				<h2 class='library__hed'>#6 - <a target='_blank' href='#'>Roll your own</a></h2>
-			
+				<h2 class='library__hed'>#6 -
+					<a target='_blank' href='#'>Roll your own</a>
+				</h2>
+
 				<p class='library__review'>
-					When in doubt, roll your own. There will be a bit more coding involved (and some fun math!), but you get to familiarize yourself with the core concepts of how scroll-driven libraries are created. It is all custom, so you can have it do whatever you want. You will want to consider performance optimizations like throttling and such.
+					When in doubt, roll your own. There will be a bit more coding involved (and some fun math!), but you get to familiarize yourself
+					with the core concepts of how scroll-driven libraries are created. It is all custom, so you can have it do whatever
+					you want. You will want to consider performance optimizations like throttling and such.
 				</p>
-				<p class='library__demo'><a href='demo/rollyourown'>Demo &rarr;</a></p>
+				<p class='library__demo'>
+					<a href='demo/rollyourown'>Demo &rarr;</a>
+				</p>
 			</div>
 			<div class='library__code'>
 				<pre><code class='language-js'>
@@ -432,24 +517,26 @@ render()
 
 		<div class='outro'>
 			<p>So what to chose? The best library all depends on your use case, but here are some recommendations based on my findings:
-			<p>
-				<strong>For highly customized stories</strong> you will want ScrollMagic or Waypoints.
-			</p>
-			<p>
-				<strong>For the beginner</strong> you might want to check out ScrollStory, especially if you lean on jQuery.
-			</p>
-			<p>
-				<strong>For the d3 lover</strong> you should explore graph-scroll.js, but be ready to accept the defaults or be ready to tinker.
-			</p>
-			<p>
-				The full code is available on <a target='_blank' href='https://github.com/polygraph-cool/how-to-implement-scrollytelling'>github</a>. If there are any good libraries out there I missed, give me a shout <a target='_blank' href='https://twitter.com/codenberg'>@codenberg</a>.
-			</p>
+				<p>
+					<strong>For highly customized stories</strong> you will want ScrollMagic or Waypoints.
+				</p>
+				<p>
+					<strong>For the beginner</strong> you might want to check out ScrollStory, especially if you lean on jQuery.
+				</p>
+				<p>
+					<strong>For the d3 lover</strong> you should explore graph-scroll.js, but be ready to accept the defaults or be ready to tinker.
+				</p>
+				<p>
+					The full code is available on
+					<a target='_blank' href='https://github.com/polygraph-cool/how-to-implement-scrollytelling'>github</a>. If there are any good libraries out there I missed, give me a shout
+					<a target='_blank' href='https://twitter.com/codenberg'>@codenberg</a>.
+				</p>
 		</div>
 	</main>
 
 	<script src='js/prism.js'></script>
 	<script>
-		(function() {
+		(function () {
 			function selectionToArray(selection) {
 				var len = selection.length
 				var result = []
@@ -461,8 +548,8 @@ render()
 
 			var buttonEl = selectionToArray(document.querySelectorAll('.code__button'))
 
-			buttonEl.forEach(function(el) {
-				el.addEventListener('click', function() {
+			buttonEl.forEach(function (el) {
+				el.addEventListener('click', function () {
 					var prevEl = this.previousElementSibling
 					var expanded = prevEl.classList.contains('is-expand')
 					if (expanded) {
@@ -478,4 +565,5 @@ render()
 	</script>
 	<script src='https://pudding.cool/assets/scripts/pudding-footer.js'></script>
 </body>
+
 </html>
